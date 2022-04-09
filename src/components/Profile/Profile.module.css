@@ -1,0 +1,25 @@
+.content {
+    grid-area: c;
+    background-color: antiquewhite;
+}
+
+.contentTopImage {
+    height: 100px;
+    background-image: url("https://cdnn21.img.ria.ru/images/104710/44/1047104429_0:0:2000:1126_1920x0_80_0_0_70be60d6205ce612ab70f847d0c8c516.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.avatar {
+    padding-top: 10px;
+    display: flex;
+}
+
+.avatar img {
+    width: 150px;
+}
+
+.description {
+    padding-left: 10px;
+}
