@@ -1,0 +1,11 @@
+.avatar {
+    display: flex;
+}
+
+.avatar img {
+    width: 150px;
+}
+
+.description {
+    padding-left: 10px;
+}

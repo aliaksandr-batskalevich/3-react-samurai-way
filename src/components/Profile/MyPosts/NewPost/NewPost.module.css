@@ -1,0 +1,19 @@
+.newPostWrapper {
+    margin-top: 10px;
+}
+
+textarea {
+    display: inline-block;
+    width: 100%;
+    min-height: 50px;
+    padding: 3px;
+}
+
+.buttonWrapper {
+    text-align: right;
+}
+
+.buttonWrapper button {
+    padding: 5px;
+
+}

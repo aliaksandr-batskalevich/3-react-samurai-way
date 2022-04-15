@@ -1,5 +1,18 @@
 .nav {
-    padding: 10px;
     grid-area: n;
+    padding: 10px;
     background-color: #0478b6;
+}
+
+.item a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: red;
+}
+
+.item a.active {
+    color: orange;
 }

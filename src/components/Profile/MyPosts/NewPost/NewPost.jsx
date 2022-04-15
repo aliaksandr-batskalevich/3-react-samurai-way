@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './NewPost.module.css'
+import {Button} from "../../../Buttons/Button";
 
 export const NewPost = () => {
+
     return (
-        <div className={s.newPost}>
-            <textarea name="" id="" cols="" rows=""></textarea>
-            <button>Add post</button>
+        <div className={s.newPostWrapper}>
+            <textarea name="" id="" cols="" rows="" placeholder={'Add post...'}></textarea>
+            <div className={s.buttonWrapper}>
+                <Button name={'Add post'}/>
+            </div>
         </div>
     );
 }
