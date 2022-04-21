@@ -1,0 +1,8 @@
+.dialogs {
+    border-right: black 2px solid;
+}
+
+.dialog a {
+    color: black;
+    text-decoration: none;
+}

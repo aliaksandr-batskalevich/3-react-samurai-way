@@ -1,16 +1,16 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 
-export const ProfileInfo = () => {
+export const ProfileInfo = (props) => {
     return (
             <div className={s.avatar}>
-                <img src="https://avatarko.ru/img/avatar/2/zhivotnye_igra_kot_1816.jpg"/>
+                <img src={props.profileInfo.avatar}/>
                 <div className={s.description}>
-                    <h3>Aliaksandr B.</h3>
-                    <p>Date of birth: 16 september</p>
-                    <p>City: Brest</p>
-                    <p>Education: KII'10</p>
-                    <p>Web-site: http://it-kamasutra.com</p>
+                    <h3>{props.profileInfo.name}</h3>
+                    <p>Date of birth: {props.profileInfo.birthday}</p>
+                    <p>City: {props.profileInfo.city}</p>
+                    <p>Education: {props.profileInfo.education}</p>
+                    <p>Web-site: {props.profileInfo.webSite}</p>
                 </div>
             </div>
     );

@@ -8,26 +8,3 @@
     grid-template-columns: 2fr 10fr;
     grid-gap: 5px;
 }
-
-.dialogs {
-    border-right: black 2px solid;
-
-}
-
-.dialog a {
-    color: blue;
-    text-decoration: none;
-}
-
-.dialog a.active {
-    color: red;
-}
-
-.messages {
-    padding-left: 10px;
-    border-left: black 2px solid;
-}
-
-.message {
-
-}

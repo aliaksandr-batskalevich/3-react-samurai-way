@@ -1,0 +1,102 @@
+.messages {
+    padding: 0 10px;
+    border-left: black 2px solid;
+}
+
+.messageMe {
+    display: flex;
+    justify-content: left;
+}
+
+.messageAnother {
+    display: flex;
+    justify-content: right;
+}
+
+.flexWrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 5px;
+}
+
+.avatarWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatarWrapper img {
+    position: absolute;
+    height: 40px;
+}
+
+.messageAnother .avatarWrapper img {
+    right: -10px;
+}
+
+.textWrapper {
+    position: relative;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 220px;
+    min-height: 70px;
+}
+
+.messageMe .textWrapper {
+    margin-left: 10px;
+    border-radius: 10px 10px 10px 0;
+    background-color: #4cbfee;
+}
+
+.messageAnother .textWrapper {
+    margin-right: 10px;
+    border-radius: 10px 10px 0 10px;
+    background-color: #eebd7d;
+}
+
+.name {
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.messageMe .name {
+    color: white;
+}
+
+.messageAnother .name {
+    color: brown;
+}
+
+.textOfMessage {
+    padding: 2px 0;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.time {
+    font-size: 10px;
+    font-weight: bold;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.triangle {
+    position: absolute;
+    bottom: 0;
+}
+
+.messageMe .triangle {
+    left: -20px;
+    border-left: transparent 20px solid;
+    border-bottom: #4cbfee 10px solid;
+}
+
+.messageAnother .triangle {
+    right: -20px;
+    border-right: transparent 20px solid;
+    border-bottom: #eebd7d 10px solid;
+}

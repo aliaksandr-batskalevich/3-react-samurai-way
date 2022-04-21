@@ -1,0 +1,28 @@
+.threeFriendsWrapper {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.friendWrapper {}
+
+.imgWrapper {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.friendImg {
+    position: absolute;
+    left: -5px;
+    height: 20px;
+}
+
+.friendsName {
+    color: white;
+    font-size: 6px;
+    font-weight: bold;
+    text-align: center;
+}
