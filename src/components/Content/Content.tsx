@@ -1,17 +1,19 @@
 import React from "react";
+import s from './Content.module.css';
+import {MyPosts} from "./MyPosts/MyPosts";
 
 export const Content = () => {
     return (
-        <div className='content'>
-            <div className='backgroundContent'>
+        <div className={s.content}>
+            <div className={s.backgroundContent}>
             </div>
-            <div className='description'>
-                <div className='avatar'>
+            <div className={s.description}>
+                <div className={s.avatar}>
                     <img src="https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg" alt="avatar"/>
                 </div>
-                <div className='aboutMe'>
+                <div className={s.aboutMe}>
                     <h2>ABOUT ME</h2>
-                    <div className='tableWrapper'>
+                    <div className={s.tableWrapper}>
                         <table>
                             <tr>
                                 <th>first name:</th>
@@ -33,24 +35,7 @@ export const Content = () => {
                     </div>
                 </div>
             </div>
-            <div className='myPosts'>
-                <h2>MY POSTS</h2>
-                <div className='newPost'>
-                    <textarea/>
-                    <button>Add post...</button>
-                </div>
-                <div className='postsWrapper'>
-                    <div className='post'>
-                        <p>Hello, I am Alex!</p>
-                    </div>
-                    <div className='post'>
-                        <p>Post 2</p>
-                    </div>
-                    <div className='post'>
-                        <p>Post 3</p>
-                    </div>
-                </div>
-            </div>
+            <MyPosts/>
         </div>
     )
 }
