@@ -44,12 +44,12 @@ export type friendType = {
     name: string
     backgroundColor: string
 }
-export type sideBarType = Array<friendType>
+export type friendsPageType = Array<friendType>
 
 export type appDataType = {
     profilePage: profilePageType
     dialoguesPage: dialoguesPageType
-    sideBar:  sideBarType
+    friendsPage:  friendsPageType
 }
 
 export const appData: appDataType = {
@@ -89,8 +89,7 @@ export const appData: appDataType = {
         dialoguesData: [
             {id: v1(), name: 'Marry'},
             {id: v1(), name: 'Andrej'},
-            {id: v1(), name: 'Olga'},
-            {id: v1(), name: 'Anna'}
+            {id: v1(), name: 'Olga'}
         ],
         messagesData: [
             {
@@ -116,9 +115,10 @@ export const appData: appDataType = {
             },
         ]
     },
-    sideBar: [
+    friendsPage: [
         {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Marry', backgroundColor: 'orangered'},
         {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Andrey', backgroundColor: 'royalblue'},
-        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Anna', backgroundColor: 'orangered'}
+        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Olga', backgroundColor: 'orangered'},
+        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Nick', backgroundColor: 'orangered'}
     ]
 }

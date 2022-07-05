@@ -15,7 +15,7 @@ const App = (props: AppPropsType) => {
         <BrowserRouter>
             <div className="appWrapper">
                 <Header/>
-                <NavBar sideBarData={props.appData.sideBar}/>
+                <NavBar sideBarData={props.appData.friendsPage}/>
                 <Content appData={props.appData}/>
             </div>
         </BrowserRouter>

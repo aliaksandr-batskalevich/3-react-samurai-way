@@ -4,11 +4,12 @@
     background-color: #06064b;
 }
 
-a {
+.nav a {
     text-decoration: none;
     color: white;
+    font-size: 13px;
 }
 
-.activeLink {
+.nav .activeLink {
     color: gold;
 }

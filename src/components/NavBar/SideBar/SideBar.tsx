@@ -1,11 +1,11 @@
 import React from "react";
 import s from './SideBar.module.css'
 import {NavLink} from "react-router-dom";
-import {sideBarType} from "../../../redux/state";
+import {friendsPageType} from "../../../redux/state";
 import {Friend} from "./Friend/Friend";
 
 type SideBarDataPropsType = {
-    sideBarData: sideBarType
+    sideBarData: friendsPageType
 }
 
 export const SideBar = (props: SideBarDataPropsType) => {
@@ -14,11 +14,12 @@ export const SideBar = (props: SideBarDataPropsType) => {
         return (
             <Friend friendData={el} />
         )
-    })
+    });
+    friends.length = 3;
 
     return (
         <div className={s.sideBarWrapper}>
-            <div className={s.navLinkWrapper}><NavLink to='/friends' className={({isActive}) => isActive ? s.activeLink : ''}>Friends</NavLink></div>
+            <div className={s.navLinkWrapper}><NavLink to='/friends' className={({isActive}) => isActive ? s.activeLink : ''}>Friends ({props.sideBarData.length})</NavLink></div>
             <div className={s.friendsWrapper}>{friends}</div>
         </div>
     )
