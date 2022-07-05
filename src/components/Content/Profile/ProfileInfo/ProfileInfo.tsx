@@ -1,11 +1,16 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
+import {profileInfoType} from "../../../../redux/state";
 
-export const ProfileInfo = () => {
+type ProfileInfoPropsType = {
+    profileInfo: profileInfoType
+}
+
+export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
         <div className={s.description}>
             <div className={s.avatar}>
-                <img src="https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg" alt="avatar"/>
+                <img src={props.profileInfo.avatarImg}/>
             </div>
             <div className={s.aboutMe}>
                 <h2>ABOUT ME</h2>
@@ -13,19 +18,19 @@ export const ProfileInfo = () => {
                     <table>
                         <tr>
                             <th>first name:</th>
-                            <td>Aliaksandr</td>
+                            <td>{props.profileInfo.firstName}</td>
                         </tr>
                         <tr>
-                            <th>second name:</th>
-                            <td>Batskalevich</td>
+                            <th>last name:</th>
+                            <td>{props.profileInfo.lastName}</td>
                         </tr>
                         <tr>
                             <th>birthday:</th>
-                            <td>september 16, 1988</td>
+                            <td>{props.profileInfo.birthday}</td>
                         </tr>
                         <tr>
                             <th>city:</th>
-                            <td>Brest</td>
+                            <td>{props.profileInfo.city}</td>
                         </tr>
                     </table>
                 </div>

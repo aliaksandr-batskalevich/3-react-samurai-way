@@ -1,0 +1,22 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.activeLink {
+    color: gold;
+}
+
+.sideBarWrapper {
+    margin-top: 20px;
+    max-width: 75px;
+}
+
+.navLinkWrapper {
+
+}
+
+.friendsWrapper {
+    display: flex;
+    justify-content: space-between;
+}

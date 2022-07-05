@@ -1,47 +1,33 @@
 import React from "react";
 import s from './Dialogues.module.css';
-import {NavLink, Route, Routes} from "react-router-dom";
+import {DialogueItem} from "./DialogueItem/DialogueItem";
+import {Message} from "./Message/Message";
+import {dialoguesPageType} from "../../../redux/state";
 
-type DialoguePropsType = {
-    id: string
-    name: string
-}
-type MessagePropsType = {
-    id: string
-    value: string
+type DialoguesPropsType = {
+    dialogues: dialoguesPageType
 }
 
-const Dialogue = (props: DialoguePropsType) => {
-    return (
-        <div className={s.dialogue}>
-            <NavLink to={props.name.toLowerCase()}
-                     className={({isActive}) => isActive ? s.activeDialogue : ''}>{props.name}</NavLink>
-        </div>
-    )
-}
+export const Dialogues = (props: DialoguesPropsType) => {
 
-const Message = (props: MessagePropsType) => {
-    return (
-        <div className={s.message}>
-            {props.value}
-        </div>
-    )
-}
+    let dialogues = props.dialogues.dialoguesData.map(el => {
+        return (
+            <DialogueItem key={el.id} data={el}/>
+        )
+    });
+    let messages = props.dialogues.messagesData.map(el => {
+        return (
+            <Message key={el.id} data={el}/>
+        )
+    })
 
-export const Dialogues = () => {
     return (
         <div className={s.dialoguesWrapper}>
             <div className={s.dialogues}>
-                <Dialogue id={'1'} name={'Marry'}/>
-                <Dialogue id={'2'} name={'Alex'}/>
-                <Dialogue id={'3'} name={'Andrej'}/>
-                <Dialogue id={'4'} name={'Olga'}/>
-                <Dialogue id={'5'} name={'Anna'}/>
+                {dialogues}
             </div>
             <div className={s.messages}>
-                <Message id={'1'} value={'Hi!'}/>
-                <Message id={'2'} value={'How are you?'}/>
-                <Message id={'3'} value={'Yo!'}/>
+                {messages}
             </div>
         </div>
     )

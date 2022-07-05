@@ -6,15 +6,20 @@ import {Friends} from "./Friends/Friends";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
+import {appDataType} from "../../redux/state";
 
-export const Content = () => {
+type ContentPropsType = {
+    appData: appDataType
+}
+
+export const Content = (props: ContentPropsType) => {
     return (
         <div className={s.contentWrapper}>
                 <Routes>
-                    <Route path='/' element={<Profile/>}/>
+                    <Route path='/' element={<Profile profileInfo={props.appData.profilePage.profileInfo} posts={props.appData.profilePage.posts}/>}/>
                     <Route path='/friends' element={<Friends/>}/>
-                    <Route path='/messages/*' element={<Dialogues/>}/>
+                    <Route path='/messages/*' element={<Dialogues dialogues={props.appData.dialoguesPage}/>}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>

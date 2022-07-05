@@ -4,14 +4,19 @@ import {Header} from "./components/Header/Header";
 import {NavBar} from "./components/NavBar/NavBar";
 import {Content} from "./components/Content/Content";
 import {BrowserRouter} from "react-router-dom";
+import {appDataType} from "./redux/state";
 
-const App = () => {
+type AppPropsType = {
+    appData: appDataType
+}
+
+const App = (props: AppPropsType) => {
     return (
         <BrowserRouter>
             <div className="appWrapper">
                 <Header/>
-                <NavBar/>
-                <Content/>
+                <NavBar sideBarData={props.appData.sideBar}/>
+                <Content appData={props.appData}/>
             </div>
         </BrowserRouter>
     )

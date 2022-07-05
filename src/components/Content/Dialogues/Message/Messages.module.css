@@ -1,0 +1,117 @@
+.messageWrapper {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.messageWrapperMe {
+    flex-direction: row-reverse;
+}
+
+.avatarWrapper {
+    padding: 3px;
+    background-color: orangered;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.avatarWrapperMe {
+    background-color: royalblue;
+}
+
+.img {
+    display: inline-block;
+    height: 40px;
+}
+
+.textOutsideWrapper {
+    display: flex;
+}
+
+.texInsideWrapper {
+    padding: 10px 10px 5px;
+    display: flex;
+    align-items: flex-end;
+    background-color: bisque;
+    border-radius: 10px 10px 10px 0;
+}
+
+.texInsideWrapperMe {
+    background-color: #b2b3fa;
+    border-radius: 10px 10px 0 10px;
+}
+
+.textMainWrapper {
+    padding-bottom: 5px;
+}
+
+.nickName {
+    text-decoration: underline;
+    color: blueviolet;
+}
+
+.nickNameMe {
+    color: darkblue;
+}
+
+.textOfMessage {
+    margin-top: 5px;
+    font-weight: 600;
+    color: #06064b;
+}
+
+.timeWrapper {
+    margin-left: 10px;
+}
+
+.time {
+    font-size: 10px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.cornerWrapper {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.corner {
+    display: inline-block;
+
+    border-bottom: bisque solid 13px;
+    border-left: transparent solid 20px;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.cornerMe {
+    border-left: unset;
+    border-right: transparent solid 20px;
+    border-bottom: #b2b3fa solid 20px;
+
+    left: unset;
+    right: 0;
+}
+
+.arc {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #06064b;
+
+    position: absolute;
+    right: -5px;
+    bottom: 0;
+}
+
+.arcMe {
+    right: unset;
+    left: -5px;
+}

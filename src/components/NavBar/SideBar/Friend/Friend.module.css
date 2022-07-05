@@ -1,0 +1,26 @@
+.friendWrapper {
+    display: inline-block;
+}
+
+.avatarWrapper {
+    padding: 1px;
+    line-height: 0;
+    background-color: orangered;
+    border-radius: 30%;
+}
+
+.avatarWrapper img {
+    display: inline-block;
+    width: 20px;
+}
+
+.nameWrapper {
+    line-height: 9px;
+}
+
+.nameWrapper p {
+    color: white;
+    display: inline-block;
+    font-size: 5px;
+    line-height: 7px;
+}
