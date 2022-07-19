@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {renderApp} from "../render";
 
 export type profileInfoType = {
     avatarImg: string
@@ -32,10 +33,11 @@ export type messageType = {
     message: string
     time: string
 }
-type messagesDataType = Array<messageType>
+export type messagesDataType = Array<messageType>
 export type dialoguesPageType = {
     dialoguesData: dialoguesDataType
     messagesData: messagesDataType
+    addMessage: (messageData: string) => void
 }
 
 export type friendType = {
@@ -49,7 +51,7 @@ export type friendsPageType = Array<friendType>
 export type appDataType = {
     profilePage: profilePageType
     dialoguesPage: dialoguesPageType
-    friendsPage:  friendsPageType
+    friendsPage: friendsPageType
 }
 
 export const appData: appDataType = {
@@ -113,12 +115,52 @@ export const appData: appDataType = {
                 message: 'Where are you?',
                 time: '22:06'
             },
-        ]
+        ],
+        addMessage: (messageData: string) => {
+            appData.dialoguesPage.messagesData.push({
+                id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+                name: 'Alex',
+                message: messageData,
+                time: '22:05'
+            });
+            renderApp(appData);
+        }
     },
     friendsPage: [
-        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Marry', backgroundColor: 'orangered'},
-        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Andrey', backgroundColor: 'royalblue'},
-        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Olga', backgroundColor: 'orangered'},
-        {id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png', name: 'Nick', backgroundColor: 'orangered'}
-    ]
+        {
+            id: v1(),
+            avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+            name: 'Marry',
+            backgroundColor: 'orangered'
+        },
+        {
+            id: v1(),
+            avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+            name: 'Andrey',
+            backgroundColor: 'royalblue'
+        },
+        {
+            id: v1(),
+            avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+            name: 'Olga',
+            backgroundColor: 'orangered'
+        },
+        {
+            id: v1(),
+            avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+            name: 'Nick',
+            backgroundColor: 'orangered'
+        }
+    ],
 }
+
+export const addPost = (postMessage: string) => {
+    appData.profilePage.posts.push({
+        id: v1(),
+        avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
+        text: postMessage,
+        date: 'June 22, 2022',
+        numOfLikes: 0
+    });
+    renderApp(appData);
+};

@@ -11,13 +11,14 @@ import {appDataType} from "../../redux/state";
 
 type ContentPropsType = {
     appData: appDataType
+    addPostCallBack: (postMessage: string) => void
 }
 
 export const Content = (props: ContentPropsType) => {
     return (
         <div className={s.contentWrapper}>
                 <Routes>
-                    <Route path='/' element={<Profile profileInfo={props.appData.profilePage.profileInfo} posts={props.appData.profilePage.posts}/>}/>
+                    <Route path='/' element={<Profile profileInfo={props.appData.profilePage.profileInfo} posts={props.appData.profilePage.posts} addPostCallBack={props.addPostCallBack}/>}/>
                     <Route path='/friends' element={<Friends/>}/>
                     <Route path='/messages/*' element={<Dialogues dialogues={props.appData.dialoguesPage}/>}/>
                     <Route path='/news' element={<News/>}/>

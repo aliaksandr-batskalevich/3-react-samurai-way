@@ -9,7 +9,7 @@ type PostsPropsType = {
 
 export const Posts = (props: PostsPropsType) => {
 
-    let posts = props.posts.reverse().map(el => {
+    let posts = props.posts.map(el => {
         return (
             <Post key={el.id} data={el}/>
         )
@@ -17,7 +17,7 @@ export const Posts = (props: PostsPropsType) => {
 
     return (
         <div className={s.postsWrapper}>
-            {posts}
+            {posts.reverse()}
         </div>
     )
 }
