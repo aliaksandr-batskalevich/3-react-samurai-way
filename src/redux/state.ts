@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {renderApp} from "../render";
 
 export type profileInfoType = {
     avatarImg: string
@@ -16,9 +15,13 @@ export type postType = {
     numOfLikes: number
 }
 export type postsType = Array<postType>
-type profilePageType = {
+export type profilePageType = {
     profileInfo: profileInfoType
     posts: postsType
+    newPostText: string
+    changeNewPostText: (textData: string) => void
+    addPost: () => void
+    addLikeToPost: (id: string) => void
 }
 
 export type dialogueType = {
@@ -37,7 +40,9 @@ export type messagesDataType = Array<messageType>
 export type dialoguesPageType = {
     dialoguesData: dialoguesDataType
     messagesData: messagesDataType
-    addMessage: (messageData: string) => void
+    newMessageText: string
+    changeNewMessageText: (messageData: string) => void
+    addMessage: () => void
 }
 
 export type friendType = {
@@ -52,6 +57,13 @@ export type appDataType = {
     profilePage: profilePageType
     dialoguesPage: dialoguesPageType
     friendsPage: friendsPageType
+}
+
+let renderAppHandler = (appData: appDataType) => {
+    console.log('Hello!')
+};
+export const subscribe = (observer: (appData: appDataType) => void) => {
+    renderAppHandler = observer;
 }
 
 export const appData: appDataType = {
@@ -85,7 +97,33 @@ export const appData: appDataType = {
                 date: 'June 30, 2022',
                 numOfLikes: 12
             }
-        ]
+        ],
+        newPostText: '',
+        changeNewPostText: (textData) => {
+            appData.profilePage.newPostText = textData;
+            renderAppHandler(appData);
+        },
+        addPost: () => {
+            if (appData.profilePage.newPostText.trim()) {
+                appData.profilePage.posts.push({
+                    id: v1(),
+                    avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
+                    text: appData.profilePage.newPostText.trim(),
+                    date: 'June 22, 2022',
+                    numOfLikes: 0
+                });
+                appData.profilePage.newPostText = '';
+                renderAppHandler(appData);
+            }
+        },
+        addLikeToPost: (id) => {
+            appData.profilePage.posts = appData.profilePage.posts.map(el => {
+                return (
+                    el.id === id ? {...el, numOfLikes: el.numOfLikes + 1} : el
+                )
+            });
+            renderAppHandler(appData);
+        }
     },
     dialoguesPage: {
         dialoguesData: [
@@ -116,14 +154,22 @@ export const appData: appDataType = {
                 time: '22:06'
             },
         ],
-        addMessage: (messageData: string) => {
-            appData.dialoguesPage.messagesData.push({
-                id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
-                name: 'Alex',
-                message: messageData,
-                time: '22:05'
-            });
-            renderApp(appData);
+        newMessageText: '',
+        changeNewMessageText: (messageData: string) => {
+            appData.dialoguesPage.newMessageText = messageData;
+            renderAppHandler(appData);
+        },
+        addMessage: () => {
+            if (appData.dialoguesPage.newMessageText.trim()) {
+                appData.dialoguesPage.messagesData.push({
+                    id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
+                    name: 'Alex',
+                    message: appData.dialoguesPage.newMessageText,
+                    time: '22:05'
+                });
+                appData.dialoguesPage.newMessageText = '';
+                renderAppHandler(appData);
+            }
         }
     },
     friendsPage: [
@@ -151,16 +197,5 @@ export const appData: appDataType = {
             name: 'Nick',
             backgroundColor: 'orangered'
         }
-    ],
+    ]
 }
-
-export const addPost = (postMessage: string) => {
-    appData.profilePage.posts.push({
-        id: v1(),
-        avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
-        text: postMessage,
-        date: 'June 22, 2022',
-        numOfLikes: 0
-    });
-    renderApp(appData);
-};

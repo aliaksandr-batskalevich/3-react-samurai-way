@@ -5,13 +5,14 @@ import {postsType} from "../../../../../redux/state";
 
 type PostsPropsType = {
     posts: postsType
+    addLikeToPostCallback: (id: string) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
 
     let posts = props.posts.map(el => {
         return (
-            <Post key={el.id} data={el}/>
+            <Post key={el.id} data={el} addLikeToPostCallback={props.addLikeToPostCallback}/>
         )
     });
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, MouseEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, MouseEvent} from "react";
 import s from './Dialogues.module.css';
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
@@ -10,14 +10,11 @@ type DialoguesPropsType = {
 
 export const Dialogues = (props: DialoguesPropsType) => {
 
-    let [newMessageData, setNewMessageData] = useState<string>('');
-
     const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setNewMessageData(event.currentTarget.value);
+        props.dialogues.changeNewMessageText(event.currentTarget.value);
     };
     const sendMessage = () => {
-        props.dialogues.addMessage(newMessageData);
-        setNewMessageData('');
+        props.dialogues.addMessage();
     };
     const onKeyPressTextAreaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         event.key === 'Enter' && sendMessage();
@@ -48,7 +45,7 @@ export const Dialogues = (props: DialoguesPropsType) => {
                     <textarea
                         className={s.textarea}
                         placeholder={'write new message...'}
-                        value={newMessageData}
+                        value={props.dialogues.newMessageText}
                         onChange={onChangeTextAreaHandler}
                         onKeyPress={onKeyPressTextAreaHandler}
                     />

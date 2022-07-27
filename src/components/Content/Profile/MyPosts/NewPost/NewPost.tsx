@@ -1,34 +1,30 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './NewPost.module.css';
 
 type NewPostPropsType = {
-    addPostCallBack: (postMessage: string) => void
+    changeNewPostTextCallback: (postMessage: string) => void
+    addPostCallBack: () => void
+    newPostText: string
 }
 
 export const NewPost = (props: NewPostPropsType) => {
 
-    let [textAreaData, setTextAreaData] = useState<string>('');
-
-    const setTextData = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setTextAreaData(event.currentTarget.value);
-    }
-    const addPost = () => {
-        props.addPostCallBack(textAreaData);
-        setTextAreaData('');
+    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewPostTextCallback(event.currentTarget.value);
     }
     const onKeyPressTextAeaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        event.key === 'Enter' && addPost();
+        event.key === 'Enter' && props.addPostCallBack();
     }
     const onClickButtonHandler = () => {
-        addPost();
+       props.addPostCallBack();
     }
 
     return (
         <div className={s.newPost}>
             <textarea
                 placeholder='New post...'
-                value={textAreaData}
-                onChange={setTextData}
+                value={props.newPostText}
+                onChange={onChangeTextAreaHandler}
                 onKeyPress={onKeyPressTextAeaHandler}
             />
             <button onClick={onClickButtonHandler}>ADD</button>
