@@ -2,15 +2,12 @@ import React from "react";
 import s from './MyPosts.module.css';
 import {NewPost} from "./NewPost/NewPost";
 import {Posts} from "./Posts/Posts";
-import {postsType} from "../../../../redux/state";
+import {actionType, postsType} from "../../../../redux/state";
 
 type MyPostsPropsType = {
     posts: postsType
-    changeNewPostTextCallback: (postMessage: string) => void
-    addPostCallBack: () => void
     newPostValue: string
-    addLikeToPostCallback: (id: string) => void
-
+    dispatch: (action: actionType) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -18,11 +15,13 @@ export const MyPosts = (props: MyPostsPropsType) => {
         <div className={s.myPosts}>
             <h2>MY POSTS</h2>
             <NewPost
-                addPostCallBack={props.addPostCallBack}
-                changeNewPostTextCallback={props.changeNewPostTextCallback}
+                dispatch={props.dispatch}
                 newPostText={props.newPostValue}
             />
-            <Posts posts={props.posts} addLikeToPostCallback={props.addLikeToPostCallback}/>
+            <Posts
+                posts={props.posts}
+                dispatch={props.dispatch}
+            />
         </div>
     )
 }

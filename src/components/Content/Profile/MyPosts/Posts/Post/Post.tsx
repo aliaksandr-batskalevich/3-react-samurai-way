@@ -1,16 +1,17 @@
 import React from "react";
 import s from './Post.module.css';
 import {Likes} from "./Likes/Likes";
-import {postType} from "../../../../../../redux/state";
+import {actionType, addLikeToPostAC, postType} from "../../../../../../redux/state";
 type PostPropsType = {
     data: postType
-    addLikeToPostCallback: (id: string) => void
+    dispatch: (action: actionType) => void
 }
 
 export const Post = (props: PostPropsType) => {
 
     const addLikeToPostHandler = () => {
-        props.addLikeToPostCallback(props.data.id)
+        let action = addLikeToPostAC(props.data.id)
+        props.dispatch(action);
     }
 
     return (

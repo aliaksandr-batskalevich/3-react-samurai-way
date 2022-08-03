@@ -2,24 +2,27 @@ import React, {ChangeEvent, KeyboardEvent, MouseEvent} from "react";
 import s from './Dialogues.module.css';
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
-import {dialoguesPageType} from "../../../redux/state";
+import {actionType, addMessageAC, changeNewMessageTextAC, dialoguesPageType} from "../../../redux/state";
 
 type DialoguesPropsType = {
     dialogues: dialoguesPageType
+    dispatch: (action: actionType) => void
 }
 
 export const Dialogues = (props: DialoguesPropsType) => {
 
     const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dialogues.changeNewMessageText(event.currentTarget.value);
+        let action = changeNewMessageTextAC(event.currentTarget.value);
+        props.dispatch(action);
     };
     const sendMessage = () => {
-        props.dialogues.addMessage();
+        let action = addMessageAC();
+        props.dispatch(action);
     };
     const onKeyPressTextAreaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         event.key === 'Enter' && sendMessage();
     };
-    const onClickButtonHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    const onClickButtonHandler = () => {
         sendMessage();
     };
 

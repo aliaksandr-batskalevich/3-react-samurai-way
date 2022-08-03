@@ -1,22 +1,25 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './NewPost.module.css';
+import {actionType, addPostAC, changeNewPostTextAC} from "../../../../../redux/state";
 
 type NewPostPropsType = {
-    changeNewPostTextCallback: (postMessage: string) => void
-    addPostCallBack: () => void
     newPostText: string
+    dispatch: (action: actionType) => void
 }
 
 export const NewPost = (props: NewPostPropsType) => {
 
     const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewPostTextCallback(event.currentTarget.value);
+        let action = changeNewPostTextAC(event.currentTarget.value)
+        props.dispatch(action);
     }
     const onKeyPressTextAeaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        event.key === 'Enter' && props.addPostCallBack();
+        let action = addPostAC();
+        event.key === 'Enter' && props.dispatch(action);
     }
     const onClickButtonHandler = () => {
-       props.addPostCallBack();
+        let action = addPostAC();
+       props.dispatch(action);
     }
 
     return (
