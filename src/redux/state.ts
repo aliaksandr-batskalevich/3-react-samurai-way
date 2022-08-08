@@ -1,10 +1,7 @@
 import {v1} from "uuid";
-
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
-const ADD_POST = 'ADD-POST';
-const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
+import profileReducer, {addLikeToPostAC, addPostAC, changeNewPostTextAC} from "./profile-reducer";
+import dialoguesReducer, {addMessageAC, changeNewMessageTextAC} from "./dialogues-reducer";
+import friendsReducer from "./friends-reducer";
 
 export type profileInfoType = {
     avatarImg: string
@@ -73,33 +70,8 @@ type storeType = {
 
     getState: () => stateType
 
-    _changeNewPostText: (textData: string) => void
-    _addPost: () => void
-    _addLikeToPost: (id: string) => void
-
-    _changeNewMessageText: (messageData: string) => void
-    _addMessage: () => void
-
     dispatch: (action: actionType) => void
 };
-
-
-export const changeNewPostTextAC = (textData: string) => {
-    return {type: CHANGE_NEW_POST_TEXT, textData: textData} as const
-};
-export const addPostAC = () => {
-    return {type: ADD_POST} as const
-};
-export const addLikeToPostAC = (id: string) => {
-    return {type: ADD_LIKE_TO_POST, id: id} as const
-};
-export const changeNewMessageTextAC = (messageData: string) => {
-    return {type: CHANGE_NEW_MESSAGE_TEXT, messageData: messageData} as const
-};
-export const addMessageAC = () => {
-    return {type: ADD_MESSAGE} as const
-};
-
 
 export const store: storeType = {
     _state: {
@@ -202,59 +174,12 @@ export const store: storeType = {
     getState() {
         return this._state
     },
-    _changeNewPostText(textData) {
-        this._state.profilePage.newPostText = textData;
-        this._renderApp(this._state);
-    },
-    _addPost() {
-        if (this._state.profilePage.newPostText.trim()) {
-            this._state.profilePage.posts.push({
-                id: v1(),
-                avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
-                text: this._state.profilePage.newPostText.trim(),
-                date: 'June 22, 2022',
-                numOfLikes: 0
-            });
-            this._state.profilePage.newPostText = '';
-            this._renderApp(this._state);
-        }
-    },
-    _addLikeToPost(id) {
-        this._state.profilePage.posts = this._state.profilePage.posts.map(el => {
-            return (
-                el.id === id ? {...el, numOfLikes: el.numOfLikes + 1} : el
-            )
-        });
-        this._renderApp(this._state);
-    },
-    _changeNewMessageText(messageData) {
-        this._state.dialoguesPage.newMessageText = messageData;
-        this._renderApp(this._state);
-    },
-    _addMessage() {
-        if (this._state.dialoguesPage.newMessageText.trim()) {
-            this._state.dialoguesPage.messagesData.push({
-                id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
-                name: 'Alex',
-                message: this._state.dialoguesPage.newMessageText,
-                time: '22:05'
-            });
-            this._state.dialoguesPage.newMessageText = '';
-            this._renderApp(this._state);
-        }
-    },
 
     dispatch(action) {
-        if (action.type === CHANGE_NEW_POST_TEXT) {
-            this._changeNewPostText(action.textData);
-        } else if (action.type === ADD_POST) {
-            this._addPost();
-        } else if (action.type === ADD_LIKE_TO_POST) {
-            this._addLikeToPost(action.id);
-        } else if (action.type === CHANGE_NEW_MESSAGE_TEXT) {
-            this._changeNewMessageText(action.messageData);
-        } else if (action.type === ADD_MESSAGE) {
-            this._addMessage();
-        }                               // before add to dispatch - add type in ~actionType~ and name of ~const~? then add ~actionCreator~
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialoguesPage = dialoguesReducer(this._state.dialoguesPage, action);
+        this._state.friendsPage = friendsReducer(this._state.friendsPage, action);
+
+        this._renderApp(this._state);
     }
 };

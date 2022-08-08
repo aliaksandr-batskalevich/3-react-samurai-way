@@ -1,7 +1,9 @@
 import React from "react";
 import s from './Post.module.css';
 import {Likes} from "./Likes/Likes";
-import {actionType, addLikeToPostAC, postType} from "../../../../../../redux/state";
+import {actionType, postType} from "../../../../../../redux/state";
+import {addLikeToPostAC} from "../../../../../../redux/profile-reducer";
+
 type PostPropsType = {
     data: postType
     dispatch: (action: actionType) => void
