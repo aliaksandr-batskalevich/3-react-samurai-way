@@ -1,18 +1,22 @@
 import React from "react";
 import s from './Posts.module.css';
 import {Post} from "./Post/Post";
-import {actionType, postsType} from "../../../../../redux/state";
+import {postsType} from "../../../../../redux/profile-reducer";
 
 type PostsPropsType = {
-    posts: postsType
-    dispatch: (action: actionType) => void
+    posts: postsType;
+    addLikeToPostCallback: (id: string) => void
 }
 
 export const Posts = (props: PostsPropsType) => {
 
     let posts = props.posts.map(el => {
         return (
-            <Post key={el.id} data={el} dispatch={props.dispatch}/>
+            <Post
+                key={el.id}
+                data={el}
+                addLikeToPostCallback={props.addLikeToPostCallback}
+            />
         )
     });
 

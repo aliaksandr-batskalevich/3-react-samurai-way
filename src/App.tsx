@@ -4,12 +4,11 @@ import {Header} from "./components/Header/Header";
 import {NavBar} from "./components/NavBar/NavBar";
 import {Content} from "./components/Content/Content";
 import {BrowserRouter} from "react-router-dom";
-import {actionType, stateType} from "./redux/state";
+import {StoreType} from "./redux/redux-store";
 
 
 type AppPropsType = {
-    state: stateType
-    dispatch: (action: actionType) => void
+    store: StoreType
 }
 
 const App = (props: AppPropsType) => {
@@ -17,11 +16,8 @@ const App = (props: AppPropsType) => {
         <BrowserRouter>
             <div className="appWrapper">
                 <Header/>
-                <NavBar sideBarData={props.state.friendsPage}/>
-                <Content
-                    state={props.state}
-                    dispatch={props.dispatch}
-                />
+                <NavBar store={props.store}/>
+                <Content store={props.store}/>
             </div>
         </BrowserRouter>
     )

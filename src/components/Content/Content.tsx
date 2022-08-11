@@ -1,17 +1,16 @@
 import React from "react";
 import s from './Content.module.css';
 import {Profile} from "./Profile/Profile";
-import {Dialogues} from "./Dialogues/Dialogues";
 import {Friends} from "./Friends/Friends";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Route, Routes} from "react-router-dom";
-import {actionType, stateType} from "../../redux/state";
+import {StoreType} from "../../redux/redux-store";
+import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
 
 type ContentPropsType = {
-    state: stateType
-    dispatch: (action: actionType) => void
+    store: StoreType
 }
 
 export const Content = (props: ContentPropsType) => {
@@ -20,15 +19,13 @@ export const Content = (props: ContentPropsType) => {
             <Routes>
                 <Route path='/' element={
                     <Profile
-                        profilePage={props.state.profilePage}
-                        dispatch={props.dispatch}
+                        store={props.store}
                     />}
                 />
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/messages/*' element={
-                    <Dialogues
-                        dialogues={props.state.dialoguesPage}
-                        dispatch={props.dispatch}
+                    <DialoguesContainer
+                        store={props.store}
                     />}
                 />
                 <Route path='/news' element={<News/>}/>

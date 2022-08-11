@@ -1,12 +1,70 @@
-import {actionType, profilePageType} from "./state";
 import {v1} from "uuid";
 import {getDate} from "./unitedFn";
+
+export type profileReducerActionType = ReturnType<typeof changeNewPostTextAC>
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof addLikeToPostAC>
+
+export type profileInfoType = {
+    avatarImg: string
+    firstName: string
+    lastName: string
+    birthday: string
+    city: string
+}
+export type postType = {
+    id: string
+    avatar: string
+    text: string
+    date: string
+    numOfLikes: number
+}
+export type postsType = Array<postType>
+export type profilePageType = {
+    profileInfo: profileInfoType
+    posts: postsType
+    newPostText: string
+}
 
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
 
-const profileReducer = (state: profilePageType, action: actionType) => {
+const initializeState: profilePageType = {
+    profileInfo: {
+        avatarImg: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg',
+        firstName: 'Aliaksandr',
+        lastName: 'Batskalevich',
+        birthday: 'September 16, 1988',
+        city: 'Brest'
+    },
+    posts: [
+        {
+            id: v1(),
+            avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
+            text: 'Hello! I am Alex!',
+            date: 'June 16, 2022',
+            numOfLikes: 0
+        },
+        {
+            id: v1(),
+            avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
+            text: 'It is my firs post!',
+            date: 'June 22, 2022',
+            numOfLikes: 10
+        },
+        {
+            id: v1(),
+            avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
+            text: 'And second! :)',
+            date: 'June 30, 2022',
+            numOfLikes: 12
+        }
+    ],
+    newPostText: ''
+};
+
+const profileReducer = (state: profilePageType = initializeState, action: profileReducerActionType) => {
     switch (action.type) {
         case CHANGE_NEW_POST_TEXT:
             state.newPostText = action.textData;

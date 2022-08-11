@@ -1,38 +1,34 @@
-import React, {ChangeEvent, KeyboardEvent, MouseEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './Dialogues.module.css';
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
-import {actionType, dialoguesPageType} from "../../../redux/state";
-import {addMessageAC, changeNewMessageTextAC} from "../../../redux/dialogues-reducer";
+import {dialoguesPageType} from "../../../redux/dialogues-reducer";
 
 type DialoguesPropsType = {
-    dialogues: dialoguesPageType
-    dispatch: (action: actionType) => void
+    storeForDialoguesPage: dialoguesPageType
+    changeNewMessageTextCallback: (text: string) => void
+    sendMessageCallback: () => void
 }
 
 export const Dialogues = (props: DialoguesPropsType) => {
 
     const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let action = changeNewMessageTextAC(event.currentTarget.value);
-        props.dispatch(action);
-    };
-    const sendMessage = () => {
-        let action = addMessageAC();
-        props.dispatch(action);
-    };
-    const onKeyPressTextAreaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        event.key === 'Enter' && sendMessage();
-    };
-    const onClickButtonHandler = () => {
-        sendMessage();
+        props.changeNewMessageTextCallback(event.currentTarget.value);
     };
 
-    let dialogues = props.dialogues.dialoguesData.map(el => {
+    const onKeyPressTextAreaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        event.key === 'Enter' && props.sendMessageCallback();
+    };
+    const onClickButtonHandler = () => {
+        props.sendMessageCallback();
+    };
+
+    let dialogues = props.storeForDialoguesPage.dialoguesData.map(el => {
         return (
             <DialogueItem key={el.id} data={el}/>
         )
     });
-    let messages = props.dialogues.messagesData.map(el => {
+    let messages = props.storeForDialoguesPage.messagesData.map(el => {
         return (
             <Message key={el.id} data={el}/>
         )
@@ -49,7 +45,7 @@ export const Dialogues = (props: DialoguesPropsType) => {
                     <textarea
                         className={s.textarea}
                         placeholder={'write new message...'}
-                        value={props.dialogues.newMessageText}
+                        value={props.storeForDialoguesPage.newMessageText}
                         onChange={onChangeTextAreaHandler}
                         onKeyPress={onKeyPressTextAreaHandler}
                     />

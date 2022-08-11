@@ -1,16 +1,20 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
-import {profileInfoType} from "../../../../redux/state";
+import {StoreType} from "../../../../redux/redux-store";
+import {profileInfoType} from "../../../../redux/profile-reducer";
 
 type ProfileInfoPropsType = {
-    profileInfo: profileInfoType
+    store: StoreType
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+
+    let stateForProfileInfo: profileInfoType = props.store.getState().profilePage.profileInfo
+
     return (
         <div className={s.description}>
             <div className={s.avatar}>
-                <img src={props.profileInfo.avatarImg}/>
+                <img src={stateForProfileInfo.avatarImg}/>
             </div>
             <div className={s.aboutMe}>
                 <h2>ABOUT ME</h2>
@@ -18,19 +22,19 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                     <table>
                         <tr>
                             <th>first name:</th>
-                            <td>{props.profileInfo.firstName}</td>
+                            <td>{stateForProfileInfo.firstName}</td>
                         </tr>
                         <tr>
                             <th>last name:</th>
-                            <td>{props.profileInfo.lastName}</td>
+                            <td>{stateForProfileInfo.lastName}</td>
                         </tr>
                         <tr>
                             <th>birthday:</th>
-                            <td>{props.profileInfo.birthday}</td>
+                            <td>{stateForProfileInfo.birthday}</td>
                         </tr>
                         <tr>
                             <th>city:</th>
-                            <td>{props.profileInfo.city}</td>
+                            <td>{stateForProfileInfo.city}</td>
                         </tr>
                     </table>
                 </div>

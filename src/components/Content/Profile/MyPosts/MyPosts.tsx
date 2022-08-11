@@ -2,12 +2,14 @@ import React from "react";
 import s from './MyPosts.module.css';
 import {NewPost} from "./NewPost/NewPost";
 import {Posts} from "./Posts/Posts";
-import {actionType, postsType} from "../../../../redux/state";
+import {postsType} from "../../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
     posts: postsType
     newPostValue: string
-    dispatch: (action: actionType) => void
+    addPostCallback: () => void
+    changePostTextCallback: (text: string) => void
+    addLikeToPostCallback: (id: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -15,12 +17,13 @@ export const MyPosts = (props: MyPostsPropsType) => {
         <div className={s.myPosts}>
             <h2>MY POSTS</h2>
             <NewPost
-                dispatch={props.dispatch}
-                newPostText={props.newPostValue}
+                newPostValue={props.newPostValue}
+                changePostTextCallback={props.changePostTextCallback}
+                addPostCallback={props.addPostCallback}
             />
             <Posts
                 posts={props.posts}
-                dispatch={props.dispatch}
+                addLikeToPostCallback={props.addLikeToPostCallback}
             />
         </div>
     )

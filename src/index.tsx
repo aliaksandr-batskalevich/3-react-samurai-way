@@ -1,22 +1,22 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {store, stateType,} from './redux/state'
+import {store} from './redux/redux-store'
 import ReactDOM from "react-dom";
 import App from "./App";
+import {Provider} from "react-redux";
 
 
-const renderApp = (state: stateType) => {
+const renderApp = () => {
     ReactDOM.render(
-        <App
-            state={store.getState()}
-            dispatch={store.dispatch.bind(store)}
-        />, document.getElementById('root'));
+        <Provider store={store}>
+            <App store={store}/>
+        </Provider>, document.getElementById('root'));
 }
 
 store.subscribe(renderApp);
 
-renderApp(store.getState());
+renderApp();
 
 
 // If you want to start measuring performance in your app, pass a function
