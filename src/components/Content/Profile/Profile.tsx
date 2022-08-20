@@ -1,11 +1,14 @@
 import React from "react";
 import s from './Profile.module.css';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {StoreType} from "../../../redux/redux-store";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {profilePageType} from "../../../redux/profile-reducer";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 type ProfilePropsType = {
-    store: StoreType
+    profilePage: profilePageType
+    changeNewPostText: (textData: string) => void,
+    addPost: () => void,
+    addLikeToPost: (id: string) => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -13,9 +16,13 @@ export const Profile = (props: ProfilePropsType) => {
         <div className={s.profileWrapper}>
             <div className={s.backgroundContent}>
             </div>
-            <ProfileInfo store={props.store}/>
-            <MyPostsContainer
-                store={props.store}
+            <ProfileInfo profileInfo={props.profilePage.profileInfo}/>
+            <MyPosts
+                posts={props.profilePage.posts}
+                newPostValue={props.profilePage.newPostText}
+                changePostTextCallback={props.changeNewPostText}
+                addPostCallback={props.addPost}
+                addLikeToPostCallback={props.addLikeToPost}
             />
         </div>
     )

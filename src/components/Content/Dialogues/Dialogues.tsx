@@ -5,7 +5,7 @@ import {Message} from "./Message/Message";
 import {dialoguesPageType} from "../../../redux/dialogues-reducer";
 
 type DialoguesPropsType = {
-    storeForDialoguesPage: dialoguesPageType
+    dialoguesPage: dialoguesPageType
     changeNewMessageTextCallback: (text: string) => void
     sendMessageCallback: () => void
 }
@@ -23,12 +23,12 @@ export const Dialogues = (props: DialoguesPropsType) => {
         props.sendMessageCallback();
     };
 
-    let dialogues = props.storeForDialoguesPage.dialoguesData.map(el => {
+    let dialogues = props.dialoguesPage.dialoguesData.map(el => {
         return (
             <DialogueItem key={el.id} data={el}/>
         )
     });
-    let messages = props.storeForDialoguesPage.messagesData.map(el => {
+    let messages = props.dialoguesPage.messagesData.map(el => {
         return (
             <Message key={el.id} data={el}/>
         )
@@ -45,7 +45,7 @@ export const Dialogues = (props: DialoguesPropsType) => {
                     <textarea
                         className={s.textarea}
                         placeholder={'write new message...'}
-                        value={props.storeForDialoguesPage.newMessageText}
+                        value={props.dialoguesPage.newMessageText}
                         onChange={onChangeTextAreaHandler}
                         onKeyPress={onKeyPressTextAreaHandler}
                     />

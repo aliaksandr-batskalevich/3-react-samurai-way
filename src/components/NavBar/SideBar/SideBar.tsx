@@ -2,43 +2,29 @@ import React from "react";
 import s from './SideBar.module.css'
 import {NavLink} from "react-router-dom";
 import {Friend} from "./Friend/Friend";
-import {StoreType} from "../../../redux/redux-store";
-import {StoreContext} from "../../../redux/StoreContext";
+import {friendsPageType} from "../../../redux/friends-reducer";
 
-type SideBarDataPropsType = {
-    store: StoreType
+type SideBarPropsType = {
+    friendsPage: friendsPageType
 }
 
-export const SideBar = (props: SideBarDataPropsType) => {
+export const SideBar = (props: SideBarPropsType) => {
 
-    // let stateForFriendsPage: friendsPageType = props.store.getState().friendsPage;
-    //
-    // let friends = stateForFriendsPage.map(el => {
-    //     return (
-    //         <Friend friendData={el}/>
-    //     )
-    // });
-    // friends.length = 3;
+    let stateForFriendsPage = props.friendsPage;
+    let friends = stateForFriendsPage.map(el => {
+        return (
+            <Friend friendData={el}/>
+        )
+    });
+
+    friends.length = 3;
 
     return (
-        <StoreContext.Consumer>
-            {value => {
-                let stateForFriendsPage1 = value.getState().friendsPage;
-                let friends1 = stateForFriendsPage1.map(el => {
-                    return (
-                        <Friend friendData={el}/>
-                    )
-                });
-                friends1.length = 3;
-                return (
-                    <div className={s.sideBarWrapper}>
-                        <div className={s.navLinkWrapper}><NavLink to='/friends'
-                                                                   className={({isActive}) => isActive ? s.activeLink : ''}>Friends
-                            ({stateForFriendsPage1.length})</NavLink></div>
-                        <div className={s.friendsWrapper}>{value ? friends1 : ''}</div>
-                    </div>
-                )
-            }}
-        </StoreContext.Consumer>
+        <div className={s.sideBarWrapper}>
+            <div className={s.navLinkWrapper}><NavLink to='/friends'
+                                                       className={({isActive}) => isActive ? s.activeLink : ''}>Friends
+                ({stateForFriendsPage.length})</NavLink></div>
+            <div className={s.friendsWrapper}>{friends}</div>
+        </div>
     )
 }

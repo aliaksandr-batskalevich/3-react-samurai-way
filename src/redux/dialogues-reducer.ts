@@ -61,17 +61,16 @@ const initializeState: dialoguesPageType = {
 const dialoguesReducer = (state: dialoguesPageType = initializeState, action: dialoguesReducerActionType) => {
     switch (action.type) {
         case CHANGE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.messageData;
-            return state;
+            return {...state, newMessageText: action.messageData};
         case ADD_MESSAGE:
             if (state.newMessageText.trim()) {
-                state.messagesData.push({
+                let newMessage = {
                     id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
                     name: 'Alex',
                     message: state.newMessageText,
                     time: getTime()
-                });
-                state.newMessageText = '';
+                };
+                return {...state, newMessageText: '', messagesData: [...state.messagesData, newMessage]};
             }
             return state;
         default:

@@ -1,29 +1,24 @@
 import React from "react";
-import {StoreType} from "../../../redux/redux-store";
 import {Dialogues} from "./Dialogues";
-import {addMessageAC, changeNewMessageTextAC, dialoguesPageType} from "../../../redux/dialogues-reducer";
+import {addMessageAC, changeNewMessageTextAC} from "../../../redux/dialogues-reducer";
+import {ActionType, StateType} from "../../../redux/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
-type DialoguesPropsType = {
-    store: StoreType
-}
-
-export const DialoguesContainer = (props: DialoguesPropsType) => {
-
-    let storeForDialoguesPage: dialoguesPageType = props.store.getState().dialoguesPage;
-    const changeNewMessageTextHandler = (messageData: string) => {
-        let action = changeNewMessageTextAC(messageData);
-        props.store.dispatch(action);
+let mapStateToProps = (state: StateType) => {
+    return {
+        dialoguesPage: state.dialoguesPage
     };
-    const sendMessageHandler = () => {
-        let action = addMessageAC();
-        props.store.dispatch(action);
+};
+let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+    return {
+        changeNewMessageTextCallback: (messageData: string) => {
+            dispatch(changeNewMessageTextAC(messageData))
+        },
+        sendMessageCallback: () => {
+            dispatch(addMessageAC());
+        }
     };
+};
 
-    return (
-        <Dialogues
-            storeForDialoguesPage={storeForDialoguesPage}
-            changeNewMessageTextCallback={changeNewMessageTextHandler}
-            sendMessageCallback={sendMessageHandler}
-        />
-    )
-}
+export const DialoguesContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogues);

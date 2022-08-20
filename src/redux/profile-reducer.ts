@@ -5,7 +5,7 @@ export type profileReducerActionType = ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof addLikeToPostAC>
 
-export type profileInfoType = {
+export type ProfileInfoType = {
     avatarImg: string
     firstName: string
     lastName: string
@@ -21,7 +21,7 @@ export type postType = {
 }
 export type postsType = Array<postType>
 export type profilePageType = {
-    profileInfo: profileInfoType
+    profileInfo: ProfileInfoType
     posts: postsType
     newPostText: string
 }
@@ -67,23 +67,21 @@ const initializeState: profilePageType = {
 const profileReducer = (state: profilePageType = initializeState, action: profileReducerActionType) => {
     switch (action.type) {
         case CHANGE_NEW_POST_TEXT:
-            state.newPostText = action.textData;
-            return state;
+            return {...state, newPostText: action.textData};
         case ADD_POST:
             if (state.newPostText.trim()) {
-                state.posts.push({
+                let newPost = {
                     id: v1(),
                     avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
                     text: state.newPostText.trim(),
                     date: getDate(),
                     numOfLikes: 0
-                });
-                state.newPostText = '';
+                };
+                return {...state, newPostText: '', posts: [...state.posts, newPost]};
             }
             return state;
         case ADD_LIKE_TO_POST:
-            state.posts = state.posts.map(el => el.id === action.id ? {...el, numOfLikes: el.numOfLikes + 1} : el);
-            return state;
+            return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, numOfLikes: el.numOfLikes + 1} : el)};
         default:
             return state;
     }

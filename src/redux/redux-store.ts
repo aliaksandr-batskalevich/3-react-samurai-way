@@ -3,20 +3,20 @@ import profileReducer, {profilePageType, profileReducerActionType} from "./profi
 import dialoguesReducer, {dialoguesPageType, dialoguesReducerActionType} from "./dialogues-reducer";
 import friendsReducer, {friendReducerActionType, friendsPageType} from "./friends-reducer";
 
-export type stateType = {
+export type StateType = {
     profilePage: profilePageType
     dialoguesPage: dialoguesPageType
     friendsPage: friendsPageType
 }
 
 export type StoreType = typeof store;
+export type ActionType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType
 
-type actionType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialoguesPage: dialoguesReducer,
     friendsPage: friendsReducer
 })
 
-export const store = createStore(reducers);
+export const store = createStore(rootReducer);

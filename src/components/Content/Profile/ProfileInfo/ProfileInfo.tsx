@@ -1,15 +1,14 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
-import {StoreType} from "../../../../redux/redux-store";
-import {profileInfoType} from "../../../../redux/profile-reducer";
+import {ProfileInfoType} from "../../../../redux/profile-reducer";
 
 type ProfileInfoPropsType = {
-    store: StoreType
+    profileInfo: ProfileInfoType
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
-    let stateForProfileInfo: profileInfoType = props.store.getState().profilePage.profileInfo
+    let stateForProfileInfo: ProfileInfoType = props.profileInfo
 
     return (
         <div className={s.description}>
