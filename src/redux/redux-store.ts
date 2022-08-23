@@ -2,21 +2,24 @@ import {combineReducers, legacy_createStore as createStore} from "redux";
 import profileReducer, {profilePageType, profileReducerActionType} from "./profile-reducer";
 import dialoguesReducer, {dialoguesPageType, dialoguesReducerActionType} from "./dialogues-reducer";
 import friendsReducer, {friendReducerActionType, friendsPageType} from "./friends-reducer";
+import catsReducer, {CatsPageType, catsReducerActionType} from "./cats-reducer";
 
 export type StateType = {
     profilePage: profilePageType
     dialoguesPage: dialoguesPageType
     friendsPage: friendsPageType
+    catsPage: CatsPageType
 }
 
 export type StoreType = typeof store;
-export type ActionType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType
+export type ActionType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType | catsReducerActionType
 
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialoguesPage: dialoguesReducer,
-    friendsPage: friendsReducer
+    friendsPage: friendsReducer,
+    catsPage: catsReducer
 })
 
 export const store = createStore(rootReducer);

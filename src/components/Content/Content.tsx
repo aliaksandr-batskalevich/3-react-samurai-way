@@ -8,18 +8,20 @@ import {Settings} from "./Settings/Settings";
 import {Route, Routes} from "react-router-dom";
 import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
 import {ProfileContainer} from "./Profile/ProfileContainer";
+import {Cats} from "./Cats/Cats";
+import CatsContainer from "./Cats/CatsContainer";
 
 export const Content = () => {
     return (
         <div className={s.contentWrapper}>
             <Routes>
-                <Route path='/' element={<ProfileContainer/>}
-                />
+                <Route path='/' element={<ProfileContainer/>}/>
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/messages/*' element={<DialoguesContainer/>}/>
                 <Route path='/news' element={<News/>}/>
                 <Route path='/music' element={<Music/>}/>
                 <Route path='/settings' element={<Settings/>}/>
+                <Route path='/cats' element={<CatsContainer/>}/>
             </Routes>
         </div>
     )

@@ -1,0 +1,42 @@
+.catsPageWrapper {
+    padding: 5px;
+}
+
+.catWrapper {
+    padding: 3px;
+    margin-bottom: 5px;
+    display: flex;
+
+    border: white solid 1px;
+    border-radius: 5px;
+
+}
+
+.avatarWrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 90px;
+}
+
+.avatarWrapper img {
+    height: 70px;
+}
+
+.catInfoWrapper {
+    margin-left: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    min-width: 350px;
+}
+
+.showMoreButtonWrapper {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.showMoreButtonWrapper button {
+    padding: 5px;
+    font-weight: bold;
+}
