@@ -6,18 +6,29 @@ import nullAvatar from '../../../assets/images/nullAvatar.png'
 
 type CatsPropsType = {
     cats: CatsType
+    currentPage: number
+    catsOnPage: number
+    totalPage: number
     follow: (id: number) => void
     unfollow: (id: number) => void
     setCats: (catsToSet: CatsType) => void
+    setTotalPage: (totalPage: number) => void
+    setCurrentPage: (currentPage: number) => void
 }
 
 export class Cats extends React.Component<CatsPropsType, {}> {
     constructor(props: CatsPropsType) {
         super(props);
+    }
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setCats(response.data.items);
-        });
+    componentDidMount() {
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.catsOnPage}`)
+            .then(response => {
+                this.props.setCats(response.data.items);
+                this.props.setTotalPage(Math.ceil(response.data.totalCount / this.props.catsOnPage));
+            });
+
     }
 
     render() {
@@ -27,9 +38,33 @@ export class Cats extends React.Component<CatsPropsType, {}> {
         const onClickUnfollowButtonHandler = (id: number) => {
             this.props.unfollow(id);
         };
-        const showMoreHandler = () => {
-            console.log('Show more, please!')
+        const onClickPageHandler = (currentPage: number) => {
+            axios
+                .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.catsOnPage}`)
+                .then(response => {
+                    this.props.setCats(response.data.items)
+                });
+            this.props.setCurrentPage(currentPage);
         };
+
+        let pages = [];
+        for (let i = 1; i <= this.props.totalPage; i++) {
+            pages.push(i);
+        }
+        let indexOfCurrentPage = pages.indexOf(this.props.currentPage);
+        let pagesOk = pages.slice(this.props.currentPage >= 7 ? indexOfCurrentPage - 7 : 0, indexOfCurrentPage + 7);
+
+        let pagesToRender = pagesOk.map((page, index) => {
+            return (
+                <span
+                    key={index}
+                    className={this.props.currentPage === page ? s.activePage : ''}
+                    onClick={() => onClickPageHandler(page)}
+                >
+                    {page}
+                </span>
+            )
+        });
 
         let catsToRender = this.props.cats.map(el => {
             return (
@@ -54,65 +89,15 @@ export class Cats extends React.Component<CatsPropsType, {}> {
             )
         });
 
+
+
         return (
             <div className={s.catsPageWrapper}>
-                {catsToRender}
-                <div className={s.showMoreButtonWrapper}>
-                    <button onClick={showMoreHandler}>Show more</button>
+                <div className={s.pagesWrapper}>
+                    {pagesToRender}
                 </div>
+                {catsToRender}
             </div>
         )
     }
 }
-
-// export const Cats = (props: CatsPropsType) => {
-//
-//     if (props.cats.length === 0) {
-//         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-//             props.setCats(response.data.items);
-//         });
-//
-//     }
-//
-//     const onClickFollowButtonHandler = (id: number) => {
-//         props.follow(id);
-//     };
-//     const onClickUnfollowButtonHandler = (id: number) => {
-//         props.unfollow(id);
-//     };
-//     const showMoreHandler = () => {
-//         console.log('Show more, please!')
-//     };
-//
-//     let catsToRender = props.cats.map(el => {
-//         return (
-//             <div className={s.catWrapper} key={el.id}>
-//                 <div className={s.avatarWrapper}>
-//                     <img src={el.photos.small !== null ? el.photos.small : nullAvatar} alt="avatar"/>
-//                     {el.followed
-//                         ? <button onClick={() => onClickUnfollowButtonHandler(el.id)}>UNFOLLOW</button>
-//                         : <button onClick={() => onClickFollowButtonHandler(el.id)}>FOLLOW</button>}
-//                 </div>
-//                 <div className={s.catInfoWrapper}>
-//                     <div className={s.firstColumn}>
-//                         <h3>{el.name}</h3>
-//                         <p>{el.status}</p>
-//                     </div>
-//                     <div className={s.secondColumn}>
-//                         <p className={s.cityInfo}>{'el.address.city'}</p>
-//                         <p className={s.countryInfo}>{'el.address.country'}</p>
-//                     </div>
-//                 </div>
-//             </div>
-//         )
-//     });
-//
-//     return (
-//         <div className={s.catsPageWrapper}>
-//             {catsToRender}
-//             <div className={s.showMoreButtonWrapper}>
-//                 <button onClick={showMoreHandler}>Show more</button>
-//             </div>
-//         </div>
-//     )
-// };

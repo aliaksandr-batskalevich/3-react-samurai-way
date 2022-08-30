@@ -1,11 +1,9 @@
 export type catsReducerActionType = ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setCatsAC>
+    | ReturnType<typeof setTotalPageAC>
+    | ReturnType<typeof setCurrentPageAC>
 
-type AddressType = {
-    country: string
-    city: string
-}
 export type CatType = {
     id: number
     name: string
@@ -17,19 +15,26 @@ export type CatType = {
     status: string
     followed: boolean
 }
-
 export type CatsType = Array<CatType>
 export type CatsPageType = {
     cats: CatsType
+    currentPage: number
+    catsOnPage: number
+    totalPage: number
 }
 
 export const initializeState: CatsPageType = {
-    cats: []
+    cats: [],
+    currentPage: 1,
+    catsOnPage: 5,
+    totalPage: 0,
 };
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_CATS = 'SET-CATS';
+const SET_TOTAL_PAGE = 'SET-TOTAL-PAGE';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 
 export const catsReducer = (state: CatsPageType = initializeState, action: catsReducerActionType): CatsPageType => {
     switch (action.type) {
@@ -48,9 +53,19 @@ export const catsReducer = (state: CatsPageType = initializeState, action: catsR
         case "SET-CATS": {
             return {
                 ...state,
-                cats: [...state.cats, ...action.payload.catsToSet]
+                cats: action.payload.catsToSet
             }
         }
+        case SET_TOTAL_PAGE:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state
     }
@@ -77,6 +92,18 @@ export const setCatsAC = (catsToSet: CatsType) => {
         type: SET_CATS,
         payload: {catsToSet}
     } as const
-}
+};
+export const setTotalPageAC = (totalPage: number) => {
+    return {
+        type: SET_TOTAL_PAGE,
+        payload: {totalPage}
+    } as const;
+};
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload: {currentPage}
+    } as const
+};
 
 export default catsReducer;

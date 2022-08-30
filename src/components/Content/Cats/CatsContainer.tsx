@@ -2,11 +2,16 @@ import {connect} from "react-redux";
 import {Cats} from "./Cats";
 import {ActionType, StateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
-import {CatsType, followAC, setCatsAC, unfollowAC} from "../../../redux/cats-reducer";
+import {CatsType, followAC, setCatsAC, setCurrentPageAC, setTotalPageAC, unfollowAC} from "../../../redux/cats-reducer";
 
 let mapStateToProps = (state: StateType) => {
     return {
-        cats: state.catsPage.cats
+        cats: state.catsPage.cats,
+        currentPage: state.catsPage.currentPage,
+        // num of cats on ine page
+        catsOnPage: state.catsPage.catsOnPage,
+        // num of pages
+        totalPage: state.catsPage.totalPage,
     };
 };
 let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
@@ -18,8 +23,14 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
             dispatch(unfollowAC(id));
         },
         setCats: (catsToSet: CatsType) => {
-            dispatch((setCatsAC(catsToSet)))
-        }
+            dispatch(setCatsAC(catsToSet))
+        },
+        setTotalPage: (totalPage: number) => {
+            dispatch(setTotalPageAC(totalPage));
+        },
+        setCurrentPage: (currentPage: number) => {
+            dispatch(setCurrentPageAC(currentPage));
+        },
     };
 };
 
