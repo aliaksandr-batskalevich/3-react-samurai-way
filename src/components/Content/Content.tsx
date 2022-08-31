@@ -1,6 +1,5 @@
 import React from "react";
 import s from './Content.module.css';
-import {Profile} from "./Profile/Profile";
 import {Friends} from "./Friends/Friends";
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
@@ -8,7 +7,6 @@ import {Settings} from "./Settings/Settings";
 import {Route, Routes} from "react-router-dom";
 import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
 import {ProfileContainer} from "./Profile/ProfileContainer";
-import {Cats} from "./Cats/Cats";
 import CatsContainer from "./Cats/CatsContainer";
 
 export const Content = () => {
