@@ -1,16 +1,34 @@
 import {v1} from "uuid";
 import {getDate} from "./unitedFn";
 
-export type profileReducerActionType = ReturnType<typeof changeNewPostTextAC>
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof addLikeToPostAC>
+export type profileReducerActionType = ReturnType<typeof changeNewPostText>
+    | ReturnType<typeof addPost>
+    | ReturnType<typeof addLikeToPost>
+    | ReturnType<typeof setToggleIsFetching>
+    | ReturnType<typeof setProfileInfo>
 
+type PhotosType = {
+    small: string
+    large: string
+}
+type ContactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
+}
 export type ProfileInfoType = {
-    avatarImg: string
-    firstName: string
-    lastName: string
-    birthday: string
-    city: string
+    userId: number
+    fullName: string
+    photos: PhotosType
+    aboutMe: string
+    lookingForAJobDescription: boolean
+    lookingForAJob: string
+    contacts: ContactsType
 }
 export type postType = {
     id: string
@@ -20,23 +38,40 @@ export type postType = {
     numOfLikes: number
 }
 export type postsType = Array<postType>
-export type profilePageType = {
+export type ProfilePageType = {
     profileInfo: ProfileInfoType
     posts: postsType
     newPostText: string
+    toggleIsFetching: boolean
 }
 
+const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
+const SET_TOGGLE_IS_FETCHING = 'SET-TOGGLE-IS-FETCHING';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
 
-const initializeState: profilePageType = {
+const initializeState: ProfilePageType = {
     profileInfo: {
-        avatarImg: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg',
-        firstName: 'Aliaksandr',
-        lastName: 'Batskalevich',
-        birthday: 'September 16, 1988',
-        city: 'Brest'
+        userId: 9999999,
+        fullName: 'Aliaksandr Batskalevich',
+        photos: {
+            small: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg',
+            large: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg'
+        },
+        aboutMe: 'Happy boy',
+        lookingForAJobDescription: true,
+        lookingForAJob: 'javascript, react, redux',
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: 'https://vk.com/aliaksandr.batskalevich',
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: 'https://github.com/aliaksandr-batskalevich',
+            mainLink: null,
+        },
     },
     posts: [
         {
@@ -61,10 +96,11 @@ const initializeState: profilePageType = {
             numOfLikes: 12
         }
     ],
-    newPostText: ''
+    newPostText: '',
+    toggleIsFetching: false,
 };
 
-const profileReducer = (state: profilePageType = initializeState, action: profileReducerActionType) => {
+const profileReducer = (state: ProfilePageType = initializeState, action: profileReducerActionType) => {
     switch (action.type) {
         case CHANGE_NEW_POST_TEXT:
             return {...state, newPostText: action.textData};
@@ -81,19 +117,44 @@ const profileReducer = (state: profilePageType = initializeState, action: profil
             }
             return state;
         case ADD_LIKE_TO_POST:
-            return {...state, posts: state.posts.map(el => el.id === action.id ? {...el, numOfLikes: el.numOfLikes + 1} : el)};
+            return {
+                ...state,
+                posts: state.posts.map(el => el.id === action.id ? {...el, numOfLikes: el.numOfLikes + 1} : el)
+            };
+        case SET_PROFILE_INFO:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case SET_TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state;
     }
 }
 
-export const changeNewPostTextAC = (textData: string) => {
+export const setProfileInfo = (profileInfo: ProfileInfoType) => {
+    return {
+        type: SET_PROFILE_INFO,
+        payload: {profileInfo}
+    } as const;
+};
+export const setToggleIsFetching = (toggleIsFetching: boolean) => {
+    return {
+        type: SET_TOGGLE_IS_FETCHING,
+        payload: {toggleIsFetching}
+    } as const;
+};
+export const changeNewPostText = (textData: string) => {
     return {type: CHANGE_NEW_POST_TEXT, textData: textData} as const
 };
-export const addPostAC = () => {
+export const addPost = () => {
     return {type: ADD_POST} as const
 };
-export const addLikeToPostAC = (id: string) => {
+export const addLikeToPost = (id: string) => {
     return {type: ADD_LIKE_TO_POST, id: id} as const
 };
 

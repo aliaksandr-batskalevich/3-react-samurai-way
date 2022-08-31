@@ -3,6 +3,7 @@ import s from "./Cats.module.css";
 import nullAvatar from "../../../assets/images/nullAvatar.png";
 import {CatsType} from "../../../redux/cats-reducer";
 import {Preloader} from "../../commons/Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 type CatsPropsType = {
     cats: CatsType
@@ -68,8 +69,10 @@ export const Cats: React.FC<CatsPropsType> = ({
                 </div>
                 <div className={s.catInfoWrapper}>
                     <div className={s.firstColumn}>
-                        <h3>{el.name}</h3>
-                        <p>{el.status}</p>
+                        <NavLink to={`/profile/${el.id}`}>
+                            <h3>{el.name}</h3>
+                        </NavLink>
+                        <p className={s.status}>{el.status}</p>
                     </div>
                     <div className={s.secondColumn}>
                         <p className={s.cityInfo}>{'el.address.city'}</p>
@@ -85,8 +88,7 @@ export const Cats: React.FC<CatsPropsType> = ({
             <div className={s.pagesWrapper}>
                 {pagesToRender}
             </div>
-            <Preloader toggleIsFetching={toggleIsFetching}/>
-            {!toggleIsFetching && catsToRender}
+            {toggleIsFetching ? <Preloader/> : catsToRender}
         </div>
     )
 }

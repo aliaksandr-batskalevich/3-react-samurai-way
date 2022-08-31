@@ -1,9 +1,9 @@
-export type catsReducerActionType = ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setCatsAC>
-    | ReturnType<typeof setTotalPageAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setToggleIsFetchingAC>
+export type catsReducerActionType = ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setCats>
+    | ReturnType<typeof setTotalPage>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setToggleIsFetching>
 
 export type CatType = {
     id: number
@@ -80,7 +80,7 @@ export const catsReducer = (state: CatsPageType = initializeState, action: catsR
     }
 }
 
-export const followAC = (catsId: number) => {
+export const follow = (catsId: number) => {
     return {
         type: FOLLOW,
         payload: {
@@ -88,7 +88,7 @@ export const followAC = (catsId: number) => {
         }
     } as const
 };
-export const unfollowAC = (catsId: number) => {
+export const unfollow = (catsId: number) => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -96,25 +96,25 @@ export const unfollowAC = (catsId: number) => {
         }
     } as const
 };
-export const setCatsAC = (catsToSet: CatsType) => {
+export const setCats = (catsToSet: CatsType) => {
     return {
         type: SET_CATS,
         payload: {catsToSet}
     } as const
 };
-export const setTotalPageAC = (totalPage: number) => {
+export const setTotalPage = (totalPage: number) => {
     return {
         type: SET_TOTAL_PAGE,
         payload: {totalPage}
     } as const;
 };
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         payload: {currentPage}
     } as const
 };
-export const setToggleIsFetchingAC = (toggleIsFetching: boolean) => {
+export const setToggleIsFetching = (toggleIsFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         payload: {toggleIsFetching}

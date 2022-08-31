@@ -6,14 +6,14 @@ import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Route, Routes} from "react-router-dom";
 import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
-import {ProfileContainer} from "./Profile/ProfileContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
 import CatsContainer from "./Cats/CatsContainer";
 
 export const Content = () => {
     return (
         <div className={s.contentWrapper}>
             <Routes>
-                <Route path='/' element={<ProfileContainer/>}/>
+                <Route path='/profile/*' element={<ProfileContainer/>}/>
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/messages/*' element={<DialoguesContainer/>}/>
                 <Route path='/news' element={<News/>}/>

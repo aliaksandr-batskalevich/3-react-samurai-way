@@ -1,11 +1,11 @@
 import {combineReducers, legacy_createStore as createStore} from "redux";
-import profileReducer, {profilePageType, profileReducerActionType} from "./profile-reducer";
+import profileReducer, {ProfilePageType, profileReducerActionType} from "./profile-reducer";
 import dialoguesReducer, {dialoguesPageType, dialoguesReducerActionType} from "./dialogues-reducer";
 import friendsReducer, {friendReducerActionType, friendsPageType} from "./friends-reducer";
 import catsReducer, {CatsPageType, catsReducerActionType} from "./cats-reducer";
 
 export type StateType = {
-    profilePage: profilePageType
+    profilePage: ProfilePageType
     dialoguesPage: dialoguesPageType
     friendsPage: friendsPageType
     catsPage: CatsPageType

@@ -1,14 +1,13 @@
 import {connect} from "react-redux";
-import {ActionType, StateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
+import {StateType} from "../../../redux/redux-store";
 import {
     CatsType,
-    followAC,
-    setCatsAC,
-    setCurrentPageAC,
-    setToggleIsFetchingAC,
-    setTotalPageAC,
-    unfollowAC
+    follow,
+    setCats,
+    setCurrentPage,
+    setToggleIsFetching,
+    setTotalPage,
+    unfollow
 } from "../../../redux/cats-reducer";
 import React from "react";
 import axios from "axios";
@@ -80,27 +79,36 @@ let mapStateToProps = (state: StateType) => {
         toggleIsFetching: state.catsPage.toggleIsFetching,
     };
 };
-let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
-    return {
-        follow: (id: number) => {
-            dispatch(followAC(id));
-        },
-        unfollow: (id: number) => {
-            dispatch(unfollowAC(id));
-        },
-        setCats: (catsToSet: CatsType) => {
-            dispatch(setCatsAC(catsToSet))
-        },
-        setTotalPage: (totalPage: number) => {
-            dispatch(setTotalPageAC(totalPage));
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setToggleIsFetching: (toggleIsFetching: boolean) => {
-            dispatch(setToggleIsFetchingAC(toggleIsFetching));
-        },
-    };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CatsContainer);
+// old version mapDispatchToProps
+// let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+//     return {
+//         follow: (id: number) => {
+//             dispatch(followAC(id));
+//         },
+//         unfollow: (id: number) => {
+//             dispatch(unfollowAC(id));
+//         },
+//         setCats: (catsToSet: CatsType) => {
+//             dispatch(setCatsAC(catsToSet))
+//         },
+//         setTotalPage: (totalPage: number) => {
+//             dispatch(setTotalPageAC(totalPage));
+//         },
+//         setCurrentPage: (currentPage: number) => {
+//             dispatch(setCurrentPageAC(currentPage));
+//         },
+//         setToggleIsFetching: (toggleIsFetching: boolean) => {
+//             dispatch(setToggleIsFetchingAC(toggleIsFetching));
+//         },
+//     };
+// };
+
+export default connect(mapStateToProps, {
+    follow,
+    setCats,
+    setCurrentPage,
+    setToggleIsFetching,
+    setTotalPage,
+    unfollow
+})(CatsContainer);

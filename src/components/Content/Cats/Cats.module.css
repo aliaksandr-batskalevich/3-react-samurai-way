@@ -6,6 +6,7 @@
     padding: 3px;
     text-align: center;
 }
+
 .pagesWrapper span {
     margin-right: 8px;
     cursor: pointer;
@@ -44,3 +45,26 @@
 
     min-width: 350px;
 }
+
+.firstColumn {
+    min-width: 80%;
+}
+
+.firstColumn a {
+    color: white;
+
+}
+
+.firstColumn h3 {
+    font-size: 16px;
+}
+
+.status {
+    color: gold;
+    font-style: italic;
+}
+
+.secondColumn {
+    font-size: 12px;
+}
+
