@@ -10,6 +10,7 @@ type CatsPropsType = {
     totalPage: number
     currentPage: number
     toggleIsFetching: boolean
+    followingInProgress: Array<number>
 
     follow: (id: number) => void
     unfollow: (id: number) => void
@@ -24,6 +25,7 @@ export const Cats: React.FC<CatsPropsType> = ({
                                                   follow,
                                                   unfollow,
                                                   setCurrentPage,
+                                                  followingInProgress,
 
                                               }) => {
     const onClickFollowButtonHandler = (id: number) => {
@@ -64,8 +66,8 @@ export const Cats: React.FC<CatsPropsType> = ({
                 <div className={s.avatarWrapper}>
                     <img src={el.photos.small !== null ? el.photos.small : nullAvatar} alt="avatar"/>
                     {el.followed
-                        ? <button onClick={() => onClickUnfollowButtonHandler(el.id)}>UNFOLLOW</button>
-                        : <button onClick={() => onClickFollowButtonHandler(el.id)}>FOLLOW</button>}
+                        ? <button onClick={() => onClickUnfollowButtonHandler(el.id)} disabled={followingInProgress.some(id => id === el.id)}>UNFOLLOW</button>
+                        : <button onClick={() => onClickFollowButtonHandler(el.id)} disabled={followingInProgress.some(id => id === el.id)}>FOLLOW</button>}
                 </div>
                 <div className={s.catInfoWrapper}>
                     <div className={s.firstColumn}>

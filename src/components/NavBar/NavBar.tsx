@@ -19,7 +19,7 @@ export const NavBar = () => {
                 <NavLink to='/music' className={({isActive}) => isActive ? s.activeLink : ''}>Music</NavLink>
             </div>
             <div>
-                <NavLink to={'/cats'} className={({isActive}) => isActive ? s.activeLink : ''}>Cats :)</NavLink>
+                <NavLink to='/cats' className={({isActive}) => isActive ? s.activeLink : ''}>Cats :)</NavLink>
             </div>
             <div>
                 <NavLink to='/settings' className={({isActive}) => isActive ? s.activeLink : ''}>Settings</NavLink>

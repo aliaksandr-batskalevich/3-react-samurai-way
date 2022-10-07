@@ -4,14 +4,14 @@ import {
     CatsType,
     follow,
     setCats,
-    setCurrentPage,
+    setCurrentPage, setFollowing,
     setToggleIsFetching,
     setTotalPage,
     unfollow
 } from "../../../redux/cats-reducer";
 import React from "react";
-import axios from "axios";
 import {Cats} from "./Cats";
+import {followApi, usersApi} from "../../../api/api";
 
 type CatsContainerPropsType = {
     cats: CatsType
@@ -19,6 +19,7 @@ type CatsContainerPropsType = {
     catsOnPage: number
     totalPage: number
     toggleIsFetching: boolean
+    followingInProgress: Array<number>
 
     follow: (id: number) => void
     unfollow: (id: number) => void
@@ -26,6 +27,7 @@ type CatsContainerPropsType = {
     setTotalPage: (totalPage: number) => void
     setCurrentPage: (currentPage: number) => void
     setToggleIsFetching: (toggleIsFetching: boolean) => void
+    setFollowing: (id: number, isFollowing: boolean) => void
 }
 
 class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
@@ -34,22 +36,39 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
     // }
 
     componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.catsOnPage}`)
-            .then(response => {
-                this.props.setCats(response.data.items);
-                this.props.setTotalPage(Math.ceil(response.data.totalCount / this.props.catsOnPage));
-                this.props.setToggleIsFetching(false);
-            });
+        usersApi.getUsers(this.props.currentPage, this.props.catsOnPage).then(response => {
+            this.props.setCats(response.items);
+            this.props.setTotalPage(Math.ceil(response.totalCount / this.props.catsOnPage));
+            this.props.setToggleIsFetching(false);
+        });
+    }
+
+    followHandler = (id: number) => {
+        this.props.setFollowing(id, true);
+        followApi.followUser(id).then(response => {
+            if (response === 0) {
+                this.props.follow(id);
+                this.props.setFollowing(id, false);
+            }
+        });
+    }
+
+    unfollowHandler = (id: number) => {
+        this.props.setFollowing(id, true);
+        followApi.unfollowUser(id).then(response => {
+            if (response === 0) {
+                this.props.unfollow(id);
+                this.props.setFollowing(id, false);
+            }
+        });
     }
 
     setCurrentPage = (currentPage: number) => {
         this.props.setCurrentPage(currentPage);
         this.props.setToggleIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.catsOnPage}`)
+        usersApi.getUsers(currentPage, this.props.catsOnPage)
             .then(response => {
-                this.props.setCats(response.data.items);
+                this.props.setCats(response.items);
                 this.props.setToggleIsFetching(false);
             });
     }
@@ -60,9 +79,10 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
             currentPage={this.props.currentPage}
             totalPage={this.props.totalPage}
             toggleIsFetching={this.props.toggleIsFetching}
+            followingInProgress={this.props.followingInProgress}
 
-            follow={this.props.follow}
-            unfollow={this.props.unfollow}
+            follow={this.followHandler}
+            unfollow={this.unfollowHandler}
             setCurrentPage={this.setCurrentPage}
         />
     }
@@ -77,6 +97,7 @@ let mapStateToProps = (state: StateType) => {
         // num of pages
         totalPage: state.catsPage.totalPage,
         toggleIsFetching: state.catsPage.toggleIsFetching,
+        followingInProgress: state.catsPage.followingInProgress
     };
 };
 
@@ -110,5 +131,6 @@ export default connect(mapStateToProps, {
     setCurrentPage,
     setToggleIsFetching,
     setTotalPage,
-    unfollow
+    unfollow,
+    setFollowing,
 })(CatsContainer);

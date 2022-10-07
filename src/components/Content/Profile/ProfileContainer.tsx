@@ -11,6 +11,8 @@ import {
     setProfileInfo,
     setToggleIsFetching
 } from "../../../redux/profile-reducer";
+import {useParams} from "react-router-dom";
+import {profileApi} from "../../../api/api";
 
 type ProfileContainerPropsType = {
     profilePage: ProfilePageType
@@ -22,17 +24,26 @@ type ProfileContainerPropsType = {
     addLikeToPost: (id: string) => void
 }
 
+// wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
+
+function withRouter(Component: (props: any) => any) {
+    const PseComponent = (props: any) => {
+        let params = useParams();
+        return <Component {...props} params={params.userId}/>
+    }
+    return PseComponent;
+}
+
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
-    // componentDidMount() {
-    //     axios
-    //         .get(`https://social-network.samuraijs.com/api/1.0/profile/23516`)
-    //         .then(response => {
-    //             this.props.setProfileInfo(response.data);
-    //             this.props.setToggleIsFetching(false);
-    //         })
-    // }
-
+    componentDidMount() {
+        // @ts-ignore
+        profileApi.getProfile(this.props.params)
+            .then(response => {
+                this.props.setProfileInfo(response);
+                this.props.setToggleIsFetching(false);
+            })
+    }
 
 
     render() {
@@ -62,10 +73,13 @@ let mapStateToProps = (state: StateType) => {
 //     };
 // };
 
+// @ts-ignore
+const WithRouterProfileContainer = withRouter(ProfileContainer);
+
 export default connect(mapStateToProps, {
     setProfileInfo,
     setToggleIsFetching,
     changeNewPostText,
     addPost,
     addLikeToPost,
-})(ProfileContainer);
+})(WithRouterProfileContainer);

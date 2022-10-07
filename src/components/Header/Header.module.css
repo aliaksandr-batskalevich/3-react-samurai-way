@@ -1,6 +1,8 @@
 .header {
     grid-area: header;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     background-color: #06064b;
 }
 
@@ -9,9 +11,9 @@
 }
 
 .header h1 {
-    font-size: 30px;
-    line-height: 100px;
-    vertical-align: center;
+    font-size: 14px;
+    /*line-height: 100px;*/
+    /*vertical-align: center;*/
     color: white;
 }
 

@@ -4,6 +4,7 @@ export type catsReducerActionType = ReturnType<typeof follow>
     | ReturnType<typeof setTotalPage>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setToggleIsFetching>
+    | ReturnType<typeof setFollowing>
 
 export type CatType = {
     id: number
@@ -23,6 +24,7 @@ export type CatsPageType = {
     catsOnPage: number
     totalPage: number
     toggleIsFetching: boolean
+    followingInProgress: Array<number>
 }
 
 export const initializeState: CatsPageType = {
@@ -31,6 +33,7 @@ export const initializeState: CatsPageType = {
     catsOnPage: 5,
     totalPage: 0,
     toggleIsFetching: true,
+    followingInProgress: [],
 };
 
 const FOLLOW = 'FOLLOW';
@@ -39,6 +42,7 @@ const SET_CATS = 'SET-CATS';
 const SET_TOTAL_PAGE = 'SET-TOTAL-PAGE';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
+const FOLLOWING = 'FOLLOWING';
 
 export const catsReducer = (state: CatsPageType = initializeState, action: catsReducerActionType): CatsPageType => {
     switch (action.type) {
@@ -75,6 +79,12 @@ export const catsReducer = (state: CatsPageType = initializeState, action: catsR
                 ...state,
                 ...action.payload
             }
+        case FOLLOWING: {
+            let newFollowingArray = action.payload.isFollowing
+                ? [...state.followingInProgress, action.payload.id]
+                : state.followingInProgress.filter(el => el !== action.payload.id)
+            return {...state, followingInProgress: newFollowingArray}
+        }
         default:
             return state
     }
@@ -120,5 +130,10 @@ export const setToggleIsFetching = (toggleIsFetching: boolean) => {
         payload: {toggleIsFetching}
     } as const;
 };
+export const setFollowing = (id: number, isFollowing: boolean) => {
+    return (
+        {type: FOLLOWING, payload: {id, isFollowing}}
+    ) as const
+}
 
 export default catsReducer;

@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {getDate} from "./unitedFn";
+import myAvatarLarge from './../assets/images/myAvatarLagge.jpg'
+import myAvatarSmall from './../assets/images/myAvatarSmall.jpg'
 
 export type profileReducerActionType = ReturnType<typeof changeNewPostText>
     | ReturnType<typeof addPost>
@@ -51,28 +53,30 @@ const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
 
-const initializeState: ProfilePageType = {
-    profileInfo: {
-        userId: 9999999,
-        fullName: 'Aliaksandr Batskalevich',
-        photos: {
-            small: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg',
-            large: 'https://99px.ru/sstorage/56/2012/12/mid_76508_1420.jpg'
-        },
-        aboutMe: 'Happy boy',
-        lookingForAJobDescription: true,
-        lookingForAJob: 'javascript, react, redux',
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: 'https://vk.com/aliaksandr.batskalevich',
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: 'https://github.com/aliaksandr-batskalevich',
-            mainLink: null,
-        },
+export const aboutMe: ProfileInfoType = {
+    userId: 9999999,
+    fullName: 'Aliaksandr Batskalevich',
+    photos: {
+        small: myAvatarSmall,
+        large: myAvatarLarge
     },
+    aboutMe: 'Happy boy',
+    lookingForAJobDescription: true,
+    lookingForAJob: 'javascript, react, redux',
+    contacts: {
+        facebook: null,
+        website: null,
+        vk: 'https://vk.com/aliaksandr.batskalevich',
+        twitter: null,
+        instagram: null,
+        youtube: null,
+        github: 'https://github.com/aliaksandr-batskalevich',
+        mainLink: null,
+    },
+}
+
+export const initializeState: ProfilePageType = {
+    profileInfo: aboutMe,
     posts: [
         {
             id: v1(),
