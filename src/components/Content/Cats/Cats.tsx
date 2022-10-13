@@ -93,4 +93,4 @@ export const Cats: React.FC<CatsPropsType> = ({
             {toggleIsFetching ? <Preloader/> : catsToRender}
         </div>
     )
-}
+};
