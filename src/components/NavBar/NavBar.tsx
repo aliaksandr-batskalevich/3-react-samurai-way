@@ -1,6 +1,6 @@
 import React from "react";
 import s from './NavBar.module.css'
-import {NavLink} from "react-router-dom";
+import {HashRouter, NavLink} from "react-router-dom";
 import {SideBarContainer} from "./SideBar/SideBarContainer";
 
 export const NavBar = () => {
