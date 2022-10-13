@@ -12,6 +12,13 @@ h2 {
 }
 
 .appWrapper {
+  background-color: #250a5e;
+}
+
+.container {
+  margin: auto;
+  max-width: 700px;
+
   display: grid;
 
   grid-gap: 10px;
@@ -19,7 +26,5 @@ h2 {
   grid-template-areas: 'header header' 'nav content';
   grid-template-rows: 100px 1fr;
   grid-template-columns: 2fr 10fr;
-
-  background-color: #250a5e;
 }
 

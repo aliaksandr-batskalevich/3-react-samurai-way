@@ -22,11 +22,11 @@ class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
                 if (response.resultCode === 0) {
                     let {id, login, email} = response.data;
                     this.props.setUserData(id, login, email);
-                    profileApi.getProfile(id)
-                        .then(response => {
-                            this.props.setUserAvatar(response.photos.small)
-                        })
+                    return profileApi.getProfile(id);
                 }
+            })
+            .then(response => {
+                this.props.setUserAvatar(response.photos.small)
             })
     }
 

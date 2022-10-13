@@ -9,9 +9,11 @@ const App = () => {
     return (
         <HashRouter>
             <div className="appWrapper">
-                <Header/>
-                <NavBar />
-                <Content />
+                <div className={'container'}>
+                    <Header/>
+                    <NavBar/>
+                    <Content/>
+                </div>
             </div>
         </HashRouter>
     )
