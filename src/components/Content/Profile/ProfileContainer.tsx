@@ -3,25 +3,25 @@ import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {StateType} from "../../../redux/redux-store";
 import {
+    ProfilePageType,
+
     addLikeToPost,
     addPost,
     changeNewPostText,
-    ProfileInfoType,
-    ProfilePageType,
-    setProfileInfo,
-    setToggleIsFetching
+
+    getProfileTC,
 } from "../../../redux/profile-reducer";
-import {useParams} from "react-router-dom";
-import {profileApi} from "../../../api/api";
+import {Navigate, useParams} from "react-router-dom";
 
 type ProfileContainerPropsType = {
+    isAuth: boolean
     profilePage: ProfilePageType
 
-    setProfileInfo: (profileInfo: ProfileInfoType) => void
-    setToggleIsFetching: (toggleIsFetching: boolean) => void
     changeNewPostText: (textData: string) => void
     addPost: () => void
     addLikeToPost: (id: string) => void
+
+    getProfileTC: (id: number) => void
 }
 
 // wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
@@ -38,15 +38,15 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         // @ts-ignore
-        profileApi.getProfile(this.props.params)
-            .then(response => {
-                this.props.setProfileInfo(response);
-                this.props.setToggleIsFetching(false);
-            })
+        this.props.getProfileTC(this.props.params);
     }
 
 
     render() {
+        if (!this.props.isAuth) {
+            return <Navigate to={'/login'}/>
+        }
+
         return (
             <Profile {...this.props} />
         )
@@ -55,6 +55,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
 let mapStateToProps = (state: StateType) => {
     return {
+        isAuth: state.authData.isAuth,
         profilePage: state.profilePage
     }
 };
@@ -77,9 +78,9 @@ let mapStateToProps = (state: StateType) => {
 const WithRouterProfileContainer = withRouter(ProfileContainer);
 
 export default connect(mapStateToProps, {
-    setProfileInfo,
-    setToggleIsFetching,
     changeNewPostText,
     addPost,
     addLikeToPost,
+
+    getProfileTC,
 })(WithRouterProfileContainer);

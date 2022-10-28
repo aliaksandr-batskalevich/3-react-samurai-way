@@ -2,6 +2,9 @@ import {v1} from "uuid";
 import {getDate} from "./unitedFn";
 import myAvatarLarge from './../assets/images/myAvatarLagge.jpg'
 import myAvatarSmall from './../assets/images/myAvatarSmall.jpg'
+import {profileApi} from "../api/api";
+import {Dispatch} from "redux";
+import {ActionType} from "./redux-store";
 
 export type profileReducerActionType = ReturnType<typeof changeNewPostText>
     | ReturnType<typeof addPost>
@@ -74,7 +77,6 @@ export const aboutMe: ProfileInfoType = {
         mainLink: null,
     },
 }
-
 export const initializeState: ProfilePageType = {
     profileInfo: aboutMe,
     posts: [
@@ -160,6 +162,14 @@ export const addPost = () => {
 };
 export const addLikeToPost = (id: string) => {
     return {type: ADD_LIKE_TO_POST, id: id} as const
+};
+
+export const getProfileTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
+    profileApi.getProfile(id)
+        .then(response => {
+            dispatch(setProfileInfo(response));
+            dispatch(setToggleIsFetching(false));
+        })
 };
 
 export default profileReducer

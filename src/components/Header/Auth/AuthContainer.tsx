@@ -2,32 +2,20 @@ import React from "react";
 import {Auth} from "./Auth";
 import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
-import {setUserAvatar, setUserData} from "../../../redux/auth-reducer";
-import {authApi, profileApi} from "../../../api/api";
+import {authUser} from "../../../redux/auth-reducer";
 
 export type AuthContainerPropsType = {
     isAuth: boolean
     login: null | string
     avatarSrc: null | string
 
-    setUserData: (id: number, login: string, email: string) => void
-    setUserAvatar: (avatarSrc: null | string) => void
+    authUser: () => void
 }
 
 class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
 
     componentDidMount() {
-        authApi.authMe()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    let {id, login, email} = response.data;
-                    this.props.setUserData(id, login, email);
-                    return profileApi.getProfile(id);
-                }
-            })
-            .then(response => {
-                this.props.setUserAvatar(response.photos.small)
-            })
+       this.props.authUser();
     }
 
     render() {
@@ -50,4 +38,4 @@ let mapStateToProps = (state: StateType) => {
     )
 }
 
-export default connect(mapStateToProps, {setUserData, setUserAvatar})(AuthContainer)
+export default connect(mapStateToProps, {authUser})(AuthContainer)

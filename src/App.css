@@ -12,7 +12,10 @@ h2 {
 }
 
 .appWrapper {
-  background-color: #250a5e;
+  /*background-color: #250a5e;*/
+  background-image: url("https://mirpozitiva.ru/wp-content/uploads/2019/11/1480505775_cosmos_0011.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .container {

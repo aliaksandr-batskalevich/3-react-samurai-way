@@ -1,3 +1,7 @@
+import {ActionType} from "./redux-store";
+import {Dispatch} from "redux";
+import {usersApi} from "../api/api";
+
 export type catsReducerActionType = ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setCats>
@@ -135,5 +139,45 @@ export const setFollowing = (id: number, isFollowing: boolean) => {
         {type: FOLLOWING, payload: {id, isFollowing}}
     ) as const
 }
+
+export const getUsersTC = (currentPage: number, catsOnPage: number) => (dispatch: Dispatch<ActionType>) => {
+    usersApi.getUsers(currentPage, catsOnPage).then(response => {
+        dispatch(setCats(response.items));
+        dispatch(setTotalPage(Math.ceil(response.totalCount / catsOnPage)));
+        dispatch(setToggleIsFetching(false));
+    });
+}
+
+export const setCurrentPageTC = (currentPage: number, catsOnPage: number) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(setCurrentPage(currentPage));
+    dispatch(setToggleIsFetching(true));
+    usersApi.getUsers(currentPage, catsOnPage)
+        .then(response => {
+            dispatch(setCats(response.items));
+            dispatch(setToggleIsFetching(false));
+        });
+};
+
+export const followTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(setFollowing(id, true));
+    usersApi.followUser(id)
+        .then(response => {
+        if (response === 0) {
+            dispatch(follow(id));
+        }
+        dispatch(setFollowing(id, false));
+    });
+};
+
+export const unfollowTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(setFollowing(id, true));
+    usersApi.unfollowUser(id)
+        .then(response => {
+            if (response === 0) {
+                dispatch(unfollow(id));
+            }
+            dispatch(setFollowing(id, false));
+        });
+};
 
 export default catsReducer;

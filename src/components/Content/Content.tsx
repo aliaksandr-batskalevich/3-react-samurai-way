@@ -8,12 +8,13 @@ import {Route, Routes} from "react-router-dom";
 import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import CatsContainer from "./Cats/CatsContainer";
+import {Login} from "./Login/Login";
 
 export const Content = () => {
     return (
         <div className={s.contentWrapper}>
             <Routes>
-
+                <Route path='/login' element={<Login/>}/>
                 {/*code for start page*/}
                 <Route path='/profile' element={<ProfileContainer/>}/>
 

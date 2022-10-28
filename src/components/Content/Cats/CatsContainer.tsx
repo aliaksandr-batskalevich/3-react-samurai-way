@@ -2,16 +2,12 @@ import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
 import {
     CatsType,
-    follow,
-    setCats,
-    setCurrentPage, setFollowing,
-    setToggleIsFetching,
-    setTotalPage,
-    unfollow
+
+    getUsersTC,
+    setCurrentPageTC, followTC, unfollowTC
 } from "../../../redux/cats-reducer";
 import React from "react";
 import {Cats} from "./Cats";
-import {followApi, usersApi} from "../../../api/api";
 
 type CatsContainerPropsType = {
     cats: CatsType
@@ -21,13 +17,10 @@ type CatsContainerPropsType = {
     toggleIsFetching: boolean
     followingInProgress: Array<number>
 
-    follow: (id: number) => void
-    unfollow: (id: number) => void
-    setCats: (catsToSet: CatsType) => void
-    setTotalPage: (totalPage: number) => void
-    setCurrentPage: (currentPage: number) => void
-    setToggleIsFetching: (toggleIsFetching: boolean) => void
-    setFollowing: (id: number, isFollowing: boolean) => void
+    getUsersTC: (currentPage: number, catsOnPage: number) => void
+    setCurrentPageTC: (currentPage: number, catsOnPage: number) => void
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
 }
 
 class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
@@ -36,41 +29,19 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
     // }
 
     componentDidMount() {
-        usersApi.getUsers(this.props.currentPage, this.props.catsOnPage).then(response => {
-            this.props.setCats(response.items);
-            this.props.setTotalPage(Math.ceil(response.totalCount / this.props.catsOnPage));
-            this.props.setToggleIsFetching(false);
-        });
+        this.props.getUsersTC(this.props.currentPage, this.props.catsOnPage);
+    }
+
+    setCurrentPageHandler = (currentPage: number) => {
+        this.props.setCurrentPageTC(currentPage, this.props.catsOnPage);
     }
 
     followHandler = (id: number) => {
-        this.props.setFollowing(id, true);
-        followApi.followUser(id).then(response => {
-            if (response === 0) {
-                this.props.follow(id);
-                this.props.setFollowing(id, false);
-            }
-        });
+        this.props.followTC(id);
     }
 
     unfollowHandler = (id: number) => {
-        this.props.setFollowing(id, true);
-        followApi.unfollowUser(id).then(response => {
-            if (response === 0) {
-                this.props.unfollow(id);
-                this.props.setFollowing(id, false);
-            }
-        });
-    }
-
-    setCurrentPage = (currentPage: number) => {
-        this.props.setCurrentPage(currentPage);
-        this.props.setToggleIsFetching(true);
-        usersApi.getUsers(currentPage, this.props.catsOnPage)
-            .then(response => {
-                this.props.setCats(response.items);
-                this.props.setToggleIsFetching(false);
-            });
+        this.props.unfollowTC(id);
     }
 
     render() {
@@ -83,7 +54,7 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
 
             follow={this.followHandler}
             unfollow={this.unfollowHandler}
-            setCurrentPage={this.setCurrentPage}
+            setCurrentPage={this.setCurrentPageHandler}
         />
     }
 }
@@ -126,11 +97,8 @@ let mapStateToProps = (state: StateType) => {
 // };
 
 export default connect(mapStateToProps, {
-    follow,
-    setCats,
-    setCurrentPage,
-    setToggleIsFetching,
-    setTotalPage,
-    unfollow,
-    setFollowing,
+    getUsersTC,
+    setCurrentPageTC,
+    followTC,
+    unfollowTC,
 })(CatsContainer);

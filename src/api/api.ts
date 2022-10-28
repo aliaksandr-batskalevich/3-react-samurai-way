@@ -13,7 +13,7 @@ export const authApi = {
         return instance.get('auth/me').then(response => {
             return response.data
         })
-    }
+    },
 };
 
 export const profileApi = {
@@ -21,7 +21,7 @@ export const profileApi = {
         return instance.get(`profile/${id}`).then(response => {
             return response.data
         })
-    }
+    },
 };
 
 export const usersApi = {
@@ -29,19 +29,15 @@ export const usersApi = {
         return instance.get(`users?page=${currentPage}&count=${catsOnPage}`).then(response => {
             return response.data
         })
-    }
-};
-
-export const followApi = {
+    },
     followUser(id: number) {
         return instance.post(`follow/${id}`).then(response => {
             return response.data.resultCode
         })
     },
-
     unfollowUser(id: number) {
         return instance.delete(`follow/${id}`).then(response => {
             return response.data.resultCode
         })
-    }
+    },
 };

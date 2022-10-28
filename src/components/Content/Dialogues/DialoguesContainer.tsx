@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 
 let mapStateToProps = (state: StateType) => {
     return {
+        isAuth: state.authData.isAuth,
         dialoguesPage: state.dialoguesPage
     };
 };

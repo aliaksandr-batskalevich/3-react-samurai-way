@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {ActionType} from "./redux-store";
+import {authApi, profileApi} from "../api/api";
+
 export type AuthDataType = {
     isAuth: boolean
     id: null | number
@@ -40,6 +44,20 @@ export const setUserAvatar = (avatarSrc: null | string) => {
     return (
         {type: SET_USER_AVATAR, payload: {avatarSrc}}
     ) as const
-}
+};
+
+export const authUser = () => (dispatch: Dispatch<ActionType>) => {
+    authApi.authMe()
+        .then(response => {
+            if (response.resultCode === 0) {
+                let {id, login, email} = response.data;
+                dispatch(setUserData(id, login, email));
+                return profileApi.getProfile(id);
+            }
+        })
+        .then(response => {
+            dispatch(setUserAvatar(response.photos.small));
+        });
+};
 
 export default authReducer;
