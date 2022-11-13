@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {ActionType} from "./redux-store";
+import {ActionsType} from "./redux-store";
 import {authApi, profileApi} from "../api/api";
+import {setProfileInfo, setToggleIsFetching} from "./profile-reducer";
 
 export type AuthDataType = {
     isAuth: boolean
@@ -9,10 +10,11 @@ export type AuthDataType = {
     email: null | string
     avatarSrc: null | string
 }
-type AuthReducerActionType = ReturnType<typeof setUserData> | ReturnType<typeof setUserAvatar>
+type AuthReducerActionType = ReturnType<typeof setUserData> | ReturnType<typeof setUserAvatar> | ReturnType<typeof setIsAuth>
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const SET_USER_AVATAR = 'SET-USER-AVATAR';
+const SET_IS_AUTH = 'SET-IS_AUTH';
 
 const initializeState: AuthDataType = {
     isAuth: false,
@@ -29,6 +31,8 @@ const authReducer = (state: AuthDataType = initializeState, action: AuthReducerA
             return {...state, ...action.payload}
         case SET_USER_AVATAR:
             return {...state, ...action.payload}
+        case SET_IS_AUTH:
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -36,7 +40,7 @@ const authReducer = (state: AuthDataType = initializeState, action: AuthReducerA
 
 export const setUserData = (id: number, login: string, email: string) => {
     return (
-        {type: SET_USER_DATA, payload: {isAuth: true, id, login, email}}
+        {type: SET_USER_DATA, payload: {id, login, email}}
     ) as const;
 };
 
@@ -46,17 +50,27 @@ export const setUserAvatar = (avatarSrc: null | string) => {
     ) as const
 };
 
-export const authUser = () => (dispatch: Dispatch<ActionType>) => {
+export const setIsAuth = (isAuth: boolean) => {
+    return {
+        type: SET_IS_AUTH,
+        payload: {isAuth}
+    } as const;
+};
+
+export const authUserTC = () => (dispatch: Dispatch<ActionsType>) => {
     authApi.authMe()
         .then(response => {
             if (response.resultCode === 0) {
                 let {id, login, email} = response.data;
                 dispatch(setUserData(id, login, email));
+                dispatch(setIsAuth(true));
                 return profileApi.getProfile(id);
             }
         })
         .then(response => {
             dispatch(setUserAvatar(response.photos.small));
+            dispatch(setProfileInfo(response));
+            dispatch(setToggleIsFetching(false));
         });
 };
 

@@ -1,5 +1,4 @@
-import {ActionType} from "./redux-store";
-import {Dispatch} from "redux";
+import {DispatchThunkType} from "./redux-store";
 import {usersApi} from "../api/api";
 
 export type catsReducerActionType = ReturnType<typeof follow>
@@ -9,6 +8,8 @@ export type catsReducerActionType = ReturnType<typeof follow>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setToggleIsFetching>
     | ReturnType<typeof setFollowing>
+
+export type catsReducerThunkType = ReturnType<typeof getUsersTC> | ReturnType<typeof setCurrentPageTC> | ReturnType<typeof followTC> | ReturnType<typeof unfollowTC>
 
 export type CatType = {
     id: number
@@ -140,7 +141,7 @@ export const setFollowing = (id: number, isFollowing: boolean) => {
     ) as const
 }
 
-export const getUsersTC = (currentPage: number, catsOnPage: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUsersTC = (currentPage: number, catsOnPage: number) => (dispatch: DispatchThunkType) => {
     usersApi.getUsers(currentPage, catsOnPage).then(response => {
         dispatch(setCats(response.items));
         dispatch(setTotalPage(Math.ceil(response.totalCount / catsOnPage)));
@@ -148,7 +149,7 @@ export const getUsersTC = (currentPage: number, catsOnPage: number) => (dispatch
     });
 }
 
-export const setCurrentPageTC = (currentPage: number, catsOnPage: number) => (dispatch: Dispatch<ActionType>) => {
+export const setCurrentPageTC = (currentPage: number, catsOnPage: number) => (dispatch: DispatchThunkType) => {
     dispatch(setCurrentPage(currentPage));
     dispatch(setToggleIsFetching(true));
     usersApi.getUsers(currentPage, catsOnPage)
@@ -158,7 +159,7 @@ export const setCurrentPageTC = (currentPage: number, catsOnPage: number) => (di
         });
 };
 
-export const followTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
+export const followTC = (id: number) => (dispatch: DispatchThunkType) => {
     dispatch(setFollowing(id, true));
     usersApi.followUser(id)
         .then(response => {
@@ -169,7 +170,7 @@ export const followTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
     });
 };
 
-export const unfollowTC = (id: number) => (dispatch: Dispatch<ActionType>) => {
+export const unfollowTC = (id: number) => (dispatch: DispatchThunkType) => {
     dispatch(setFollowing(id, true));
     usersApi.unfollowUser(id)
         .then(response => {

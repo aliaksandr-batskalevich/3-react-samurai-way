@@ -10,6 +10,8 @@ type ProfilePropsType = {
     changeNewPostText: (textData: string) => void,
     addPost: () => void,
     addLikeToPost: (id: string) => void
+    changeProfileStatus: (aboutMe: string) => void
+    isMyAccountPage: boolean
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -17,9 +19,12 @@ export const Profile = (props: ProfilePropsType) => {
         props.profilePage.toggleIsFetching
             ? <Preloader/>
             : <div className={s.profileWrapper}>
-                <div className={s.backgroundContent}>
-                </div>
-                <ProfileInfo profileInfo={props.profilePage.profileInfo}/>
+                <div className={s.backgroundContent}/>
+                <ProfileInfo
+                    profileInfo={props.profilePage.profileInfo}
+                    changeProfileStatus={props.changeProfileStatus}
+                    isMyAccountPage={props.isMyAccountPage}
+                />
                 <MyPosts
                     posts={props.profilePage.posts}
                     newPostValue={props.profilePage.newPostText}

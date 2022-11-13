@@ -1,19 +1,18 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import profileReducer, {profileReducerActionType} from "./profile-reducer";
 import dialoguesReducer, {dialoguesReducerActionType} from "./dialogues-reducer";
 import friendsReducer, {friendReducerActionType} from "./friends-reducer";
 import catsReducer, {catsReducerActionType} from "./cats-reducer";
 import authReducer from "./auth-reducer";
-import thunkMiddleware from 'redux-thunk'
+import thunk, {ThunkDispatch} from 'redux-thunk';
 
-export type StateType = ReturnType<typeof rootReducer>
-
-export type StoreType = typeof store;
-
-export type ActionType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType | catsReducerActionType
+export type StateType = ReturnType<typeof rootReducer>;
+export type DispatchThunkType = ThunkDispatch<StateType, unknown, ActionsType>;
+export type ActionsType = profileReducerActionType | dialoguesReducerActionType | friendReducerActionType | catsReducerActionType;
 
 
-let rootReducer = combineReducers({
+
+    let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialoguesPage: dialoguesReducer,
     friendsPage: friendsReducer,
@@ -21,4 +20,4 @@ let rootReducer = combineReducers({
     authData: authReducer,
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));

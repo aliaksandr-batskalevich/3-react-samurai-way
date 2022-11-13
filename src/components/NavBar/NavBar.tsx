@@ -1,13 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from './NavBar.module.css'
-import {HashRouter, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {SideBarContainer} from "./SideBar/SideBarContainer";
+import {StateType} from "../../redux/redux-store";
+import {useSelector} from "react-redux";
 
 export const NavBar = () => {
+
+    const isAuth = useSelector<StateType, boolean>(state => state.authData.isAuth);
+    const authId = useSelector<StateType, null | number>(state => state.authData.id);
+
     return (
         <nav className={s.nav}>
             <div>
-                <NavLink to='/profile' className={({isActive}) => isActive ? s.activeLink : ''}>Profile</NavLink>
+                <NavLink to={`/profile${isAuth && `/${authId}`}`} className={({isActive}) => isActive ? s.activeLink : ''}>Profile</NavLink>
             </div>
             <div>
                 <NavLink to='/messages' className={({isActive}) => isActive ? s.activeLink : ''}>Messages</NavLink>

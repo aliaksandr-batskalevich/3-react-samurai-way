@@ -5,20 +5,19 @@ import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {Route, Routes} from "react-router-dom";
-import {DialoguesContainer} from "./Dialogues/DialoguesContainer";
-import ProfileContainer from "./Profile/ProfileContainer";
+import DialoguesContainer from "./Dialogues/DialoguesContainer";
 import CatsContainer from "./Cats/CatsContainer";
 import {Login} from "./Login/Login";
+import ProfileContainerFC from "./Profile/ProfileContainerFC";
 
 export const Content = () => {
+
     return (
         <div className={s.contentWrapper}>
             <Routes>
                 <Route path='/login' element={<Login/>}/>
-                {/*code for start page*/}
-                <Route path='/profile' element={<ProfileContainer/>}/>
-
-                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                <Route path='/' element={<ProfileContainerFC/>}/>
+                <Route path='/profile/:userId' element={<ProfileContainerFC/>}/>
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/messages/*' element={<DialoguesContainer/>}/>
                 <Route path='/news' element={<News/>}/>

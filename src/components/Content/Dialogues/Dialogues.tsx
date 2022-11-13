@@ -2,12 +2,10 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './Dialogues.module.css';
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
-import {dialoguesPageType} from "../../../redux/dialogues-reducer";
-import {Navigate} from "react-router-dom";
+import {DialoguesPageType} from "../../../redux/dialogues-reducer";
 
 type DialoguesPropsType = {
-    isAuth: boolean
-    dialoguesPage: dialoguesPageType
+    dialoguesPage: DialoguesPageType
     changeNewMessageTextCallback: (text: string) => void
     sendMessageCallback: () => void
 }
@@ -35,10 +33,6 @@ export const Dialogues = (props: DialoguesPropsType) => {
             <Message key={el.id} data={el}/>
         )
     });
-
-    if (!props.isAuth) {
-        return <Navigate to={'/login'}/>
-    }
 
     return (
         <div className={s.dialoguesWrapper}>

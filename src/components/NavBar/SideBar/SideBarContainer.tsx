@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {ActionType, StateType} from "../../../redux/redux-store";
+import {ActionsType, StateType} from "../../../redux/redux-store";
 import {SideBar} from "./SideBar";
 import {Dispatch} from "redux";
 
@@ -9,7 +9,7 @@ let mapStateToProps = (state: StateType) => {
         friendsPage: state.friendsPage
     }
 };
-let mapDispatchToProps = (dispatch: Dispatch<ActionType>) => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
 
     }

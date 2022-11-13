@@ -11,9 +11,9 @@ type SideBarPropsType = {
 export const SideBar = (props: SideBarPropsType) => {
 
     let stateForFriendsPage = props.friendsPage;
-    let friends = stateForFriendsPage.map(el => {
+    let friends = stateForFriendsPage.map((el, index) => {
         return (
-            <Friend friendData={el}/>
+            <Friend key={index} friendData={el}/>
         )
     });
 

@@ -14,7 +14,7 @@ export type messageType = {
     time: string
 }
 export type messagesDataType = Array<messageType>
-export type dialoguesPageType = {
+export type DialoguesPageType = {
     dialoguesData: dialoguesDataType
     messagesData: messagesDataType
     newMessageText: string
@@ -26,7 +26,7 @@ export type dialoguesReducerActionType = ReturnType<typeof changeNewMessageTextA
 const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
-const initializeState: dialoguesPageType = {
+const initializeState: DialoguesPageType = {
     dialoguesData: [
         {id: v1(), name: 'Marry'},
         {id: v1(), name: 'Andrej'},
@@ -58,7 +58,7 @@ const initializeState: dialoguesPageType = {
     newMessageText: ''
 };
 
-const dialoguesReducer = (state: dialoguesPageType = initializeState, action: dialoguesReducerActionType) => {
+const dialoguesReducer = (state: DialoguesPageType = initializeState, action: dialoguesReducerActionType) => {
     switch (action.type) {
         case CHANGE_NEW_MESSAGE_TEXT:
             return {...state, newMessageText: action.messageData};

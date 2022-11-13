@@ -2,9 +2,12 @@ import React from "react";
 import s from './ProfileInfo.module.css';
 import {ProfileInfoType} from "../../../../redux/profile-reducer";
 import jobOpenings from './../../../../assets/images/jobOpenings.png'
+import {ProfileStatus} from './ProfileStatus/ProfileStatus'
 
 type ProfileInfoPropsType = {
     profileInfo: ProfileInfoType
+    changeProfileStatus: (aboutMe: string) => void
+    isMyAccountPage: boolean
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -21,7 +24,12 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
         <div className={s.profileInfoWrapper}>
             <div className={s.avatarWrapper}>
-                <img className={s.avatarImg} src={restProps.photos.large} alt="avatar"/>
+                <img
+                    className={s.avatarImg}
+                    src={restProps.photos.large
+                        ? restProps.photos.large
+                        : undefined}
+                    alt="avatar"/>
                 {lookingForAJobDescription && <img
                     className={s.jobOpeningsImg}
                     src={jobOpenings}
@@ -30,7 +38,11 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.description}>
                 <div className={s.title}>
                     <h2>{fullName}</h2>
-                    <p>{aboutMe}</p>
+                    <ProfileStatus
+                        aboutMe={aboutMe}
+                        isMyAccountPage={props.isMyAccountPage}
+                        changeProfileStatus={props.changeProfileStatus}
+                    />
                 </div>
                 <div className={s.skills}>
                     <h3>Skills:</h3>

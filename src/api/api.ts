@@ -22,6 +22,16 @@ export const profileApi = {
             return response.data
         })
     },
+    getStatus(id: number) {
+        return instance.get(`profile/status/${id}`).then(response => {
+            return response.data
+        })
+    },
+    updateStatus(newStatus: string) {
+        return instance.put(`profile/status`, {status: newStatus}).then(response => {
+            return response.data
+        })
+    },
 };
 
 export const usersApi = {

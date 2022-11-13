@@ -2,7 +2,7 @@ import React from "react";
 import {Auth} from "./Auth";
 import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
-import {authUser} from "../../../redux/auth-reducer";
+import {authUserTC} from "../../../redux/auth-reducer";
 
 export type AuthContainerPropsType = {
     isAuth: boolean
@@ -38,4 +38,4 @@ let mapStateToProps = (state: StateType) => {
     )
 }
 
-export default connect(mapStateToProps, {authUser})(AuthContainer)
+export default connect(mapStateToProps, {authUser: authUserTC})(AuthContainer)
