@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {ActionsType} from "./redux-store";
+import {ActionsType, DispatchThunkType} from "./redux-store";
 import {authApi, profileApi} from "../api/api";
 import {setProfileInfo, setToggleIsFetching} from "./profile-reducer";
 
@@ -49,7 +49,6 @@ export const setUserAvatar = (avatarSrc: null | string) => {
         {type: SET_USER_AVATAR, payload: {avatarSrc}}
     ) as const
 };
-
 export const setIsAuth = (isAuth: boolean) => {
     return {
         type: SET_IS_AUTH,
@@ -57,7 +56,7 @@ export const setIsAuth = (isAuth: boolean) => {
     } as const;
 };
 
-export const authUserTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const authUserTC = () => (dispatch: DispatchThunkType) => {
     authApi.authMe()
         .then(response => {
             if (response.resultCode === 0) {
@@ -72,6 +71,16 @@ export const authUserTC = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setProfileInfo(response));
             dispatch(setToggleIsFetching(false));
         });
+};
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: boolean) => (dispatch: DispatchThunkType) => {
+    authApi.login(email, password, rememberMe, captcha).then(response => {
+        dispatch(authUserTC());
+    })
+}
+export const logoutTC = () => (dispatch: DispatchThunkType) => {
+    authApi.logout().then(response => {
+        dispatch(setIsAuth(false));
+    });
 };
 
 export default authReducer;

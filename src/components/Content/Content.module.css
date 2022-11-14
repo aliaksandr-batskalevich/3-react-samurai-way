@@ -2,4 +2,6 @@
     grid-area: content;
     background-color: #06064b;
     color: white;
+
+    min-height: 88vh;
 }

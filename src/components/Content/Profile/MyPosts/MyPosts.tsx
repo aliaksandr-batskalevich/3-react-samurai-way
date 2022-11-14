@@ -14,7 +14,7 @@ type MyPostsPropsType = {
 
 export const MyPosts = (props: MyPostsPropsType) => {
     return (
-        <div className={s.myPosts}>
+        <div className={s.myPostsWrapper}>
             <h2>MY POSTS</h2>
             <NewPost
                 newPostValue={props.newPostValue}
@@ -25,6 +25,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 posts={props.posts}
                 addLikeToPostCallback={props.addLikeToPostCallback}
             />
+            <p className={s.context}>section in progress, no API</p>
         </div>
     )
 }

@@ -35,13 +35,14 @@ export const Dialogues = (props: DialoguesPropsType) => {
     });
 
     return (
-        <div className={s.dialoguesWrapper}>
-            <div className={s.dialogues}>
-                {dialogues}
-            </div>
-            <div className={s.messages}>
-                {messages}
-                <div className={s.inputMessageWrapper}>
+        <div className={s.mainWrapper}>
+            <div className={s.dialoguesWrapper}>
+                <div className={s.dialogues}>
+                    {dialogues}
+                </div>
+                <div className={s.messages}>
+                    {messages}
+                    <div className={s.inputMessageWrapper}>
                     <textarea
                         className={s.textarea}
                         placeholder={'write new message...'}
@@ -49,14 +50,16 @@ export const Dialogues = (props: DialoguesPropsType) => {
                         onChange={onChangeTextAreaHandler}
                         onKeyPress={onKeyPressTextAreaHandler}
                     />
-                    <button
-                        className={s.button}
-                        onClick={onClickButtonHandler}
-                    >
-                        Send
-                    </button>
+                        <button
+                            className={s.button}
+                            onClick={onClickButtonHandler}
+                        >
+                            Send
+                        </button>
+                    </div>
                 </div>
             </div>
+            <p className={s.context}>section in progress, no API</p>
         </div>
     )
 }

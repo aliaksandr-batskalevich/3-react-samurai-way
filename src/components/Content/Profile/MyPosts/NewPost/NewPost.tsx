@@ -22,14 +22,15 @@ export const NewPost = (props: NewPostPropsType) => {
     };
 
     return (
-        <div className={s.newPost}>
+        <div className={s.newPostWrapper}>
             <textarea
+                className={s.textarea}
                 placeholder='New post...'
                 value={props.newPostValue}
                 onChange={onChangeTextAreaHandler}
                 onKeyPress={onKeyPressTextAeaHandler}
             />
-            <button onClick={onClickButtonHandler}>ADD</button>
+            <button className={s.addPostButton} onClick={onClickButtonHandler}>post</button>
         </div>
     )
 }

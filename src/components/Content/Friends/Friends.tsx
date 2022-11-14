@@ -5,6 +5,7 @@ export const Friends = () => {
     return (
         <div className={s.friendsWrapper}>
             Friends
+            <p className={s.context}>section in progress, no API</p>
         </div>
     )
 }

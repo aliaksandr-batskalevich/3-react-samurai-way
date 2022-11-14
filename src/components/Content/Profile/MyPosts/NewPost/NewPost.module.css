@@ -1,3 +1,14 @@
-.myPosts {
-    padding-top: 10px;
+.newPostWrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+.textarea {
+    height: 40px;
+    width: 80%;
+}
+
+.addPostButton {
+    margin-left: 5px;
+    height: 20px;
 }

@@ -5,6 +5,7 @@ export const Settings = () => {
     return (
         <div className={s.settingsWrapper}>
             Settings
+            <p className={s.context}>section in progress, no API</p>
         </div>
     )
 }

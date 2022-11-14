@@ -1,3 +1,9 @@
 .friendsWrapper {
 
 }
+
+.context {
+    text-align: center;
+    margin-top: 10px;
+    color: orangered;
+}

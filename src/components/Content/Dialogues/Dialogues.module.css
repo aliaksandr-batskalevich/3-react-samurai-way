@@ -1,3 +1,7 @@
+.mainWrapper {
+    border: orangered solid 1px;
+}
+
 .dialoguesWrapper {
     padding: 10px;
     display: grid;
@@ -25,14 +29,21 @@
 }
 
 .inputMessageWrapper {
-
+    display: flex;
+    align-items: flex-end;
 }
 
 .textarea {
     width: 80%;
-    min-height: 30px;
+    min-height: 40px;
 }
 
 .button {
+    margin-left: 5px;
+}
 
+.context {
+    text-align: center;
+    margin-top: 10px;
+    color: orangered;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {Auth} from "./Auth";
 import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
-import {authUserTC} from "../../../redux/auth-reducer";
+import {authUserTC, logoutTC} from "../../../redux/auth-reducer";
 
 export type AuthContainerPropsType = {
     isAuth: boolean
@@ -10,6 +10,7 @@ export type AuthContainerPropsType = {
     avatarSrc: null | string
 
     authUser: () => void
+    logOut: () => void
 }
 
 class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
@@ -18,12 +19,17 @@ class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
        this.props.authUser();
     }
 
+    logOut = () => {
+        this.props.logOut();
+    }
+
     render() {
         return <Auth
             isAuth={this.props.isAuth}
             login={this.props.login}
 
             avatarSrc={this.props.avatarSrc}
+            logOut={this.logOut}
         />
     }
 }
@@ -38,4 +44,4 @@ let mapStateToProps = (state: StateType) => {
     )
 }
 
-export default connect(mapStateToProps, {authUser: authUserTC})(AuthContainer)
+export default connect(mapStateToProps, {authUser: authUserTC, logOut: logoutTC})(AuthContainer)

@@ -23,3 +23,10 @@
 .avatarWrapper img {
     height: 50px;
 }
+
+.logOutButton {
+    font-size: 12px;
+    line-height: 12px;
+    display: inline-block;
+    height: 15px;
+}
