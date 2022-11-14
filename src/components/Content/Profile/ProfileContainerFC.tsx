@@ -8,9 +8,9 @@ import {
     addLikeToPost,
     addPost,
     changeNewPostText,
-    updateProfileStatus,
-    getProfileTC, getStatusTC,
-    ProfilePageType, updateStatusTC
+    getProfileTC,
+    ProfilePageType,
+    updateStatusTC
 } from "../../../redux/profile-reducer";
 import {useAppDispatch} from "../../../redux/hooks";
 import {withAuthRedirect} from "../../commons/HOKs/withAuthRedirect/withAuthRedirect";
@@ -44,9 +44,7 @@ const ProfileContainerFC = () => {
 
         if (isAuth) {
             params.userId && dispatch(getProfileTC(+params.userId));
-            setTimeout(() => {
-                params.userId && dispatch(getStatusTC(+params.userId));
-            }, 1000)
+            // params.userId && dispatch(getStatusTC(+params.userId));
         }
     }, [params]);
 

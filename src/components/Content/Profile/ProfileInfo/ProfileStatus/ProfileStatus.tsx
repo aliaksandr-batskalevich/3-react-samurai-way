@@ -1,8 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './ProfileStatus.module.css'
+import {AboutMeType} from "../../../../../redux/profile-reducer";
+import {PreloaderStatus} from "../../../../commons/PreloaderStatus/PreloaderStatus";
 
 type ProfileStatusPropsType = {
-    aboutMe: null | string
+    aboutMe: null | AboutMeType
     isMyAccountPage: boolean
     changeProfileStatus: (aboutMe: string) => void
 }
@@ -11,7 +13,13 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
     state = {
         isChanging: false,
-        aboutMe: this.props.aboutMe
+        status: this.props.aboutMe?.status
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.aboutMe && this.props.aboutMe && prevProps.aboutMe.status !== this.props.aboutMe.status) {
+            this.setState({status: this.props.aboutMe.status})
+        }
     }
 
     setIsChangingTrue = () => {
@@ -19,16 +27,16 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         && this.setState({isChanging: true});
     }
     setIsChangingFalse = () => {
-        if (this.state.aboutMe) {
-            this.setState({isChanging: false});
-            this.props.changeProfileStatus(this.state.aboutMe);
+        if (this.state.status !== null && this.state.status !== undefined) {
+            this.props.changeProfileStatus(this.state.status);
         }
+        this.setState({isChanging: false});
 
     }
 
-    changeAboutMe = (event: ChangeEvent<HTMLInputElement>) => {
-        let aboutMe = event.currentTarget.value;
-        this.setState({aboutMe});
+    updateStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        let status = event.currentTarget.value;
+        this.setState({status});
     }
     onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         event.key === 'Enter' && this.setIsChangingFalse();
@@ -36,24 +44,26 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
     render() {
 
-        let renderStatus = this.props.aboutMe ? this.props.aboutMe : this.props.isMyAccountPage ? 'Set your status...' : '';
+        let renderStatus = this.props.aboutMe?.status ? this.props.aboutMe.status : this.props.isMyAccountPage ? 'Set your status...' : 'User has not set status :(';
 
         return (
-            <div>
-                {!this.state.isChanging
-                ?  <span
-                        className={s.status}
-                        onDoubleClick={this.setIsChangingTrue}>
+            <div className={s.profileStatusWrapper}>
+                {this.props.aboutMe?.isLoading
+                    ? <PreloaderStatus/>
+                    : !this.state.isChanging
+                        ? <span
+                            className={s.status}
+                            onDoubleClick={this.setIsChangingTrue}>
                         {renderStatus}
                 </span>
-                : <input
-                        type={'text'}
-                        value={this.state.aboutMe ? this.state.aboutMe: ''}
-                        autoFocus
-                        onBlur={this.setIsChangingFalse}
-                        onChange={this.changeAboutMe}
-                        onKeyPress={this.onKeyPressHandler}
-                    />}
+                        : <input
+                            type={'text'}
+                            value={this.state.status ? this.state.status : ''}
+                            autoFocus
+                            onBlur={this.setIsChangingFalse}
+                            onChange={this.updateStatusHandler}
+                            onKeyPress={this.onKeyPressHandler}
+                        />}
             </div>
         );
     }

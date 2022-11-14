@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
 import {AuthDataType} from "../../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
+import LoginForm from "./LoginForm/LoginForm";
 
 export const Login = () => {
 
@@ -13,6 +14,7 @@ export const Login = () => {
             ? <Navigate to={`/profile/${id}`}/>
             : <div>
                 <h1>LOGIN</h1>
+                <LoginForm/>
             </div>
     );
 };

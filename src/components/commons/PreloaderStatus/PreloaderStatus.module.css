@@ -1,0 +1,17 @@
+.preloaderWrapper {
+    display: inline-block;
+    overflow: hidden;
+    height: 18px;
+    width: 80px;
+    position: relative;
+}
+
+.preloader {
+    display: inline-block;
+    width: 300px;
+
+    position: absolute;
+    top: -138px;
+    left: -115px;
+
+}

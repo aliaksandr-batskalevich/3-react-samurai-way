@@ -9,6 +9,7 @@ export type profileReducerActionType = ReturnType<typeof changeNewPostText>
     | ReturnType<typeof setToggleIsFetching>
     | ReturnType<typeof setProfileInfo>
     | ReturnType<typeof updateProfileStatus>
+    | ReturnType<typeof setStatusIsLoading>
 
 
 type PhotosType = {
@@ -25,11 +26,15 @@ type ContactsType = {
     github: string | null
     mainLink: string | null
 }
+export type AboutMeType = {
+    isLoading: boolean
+    status: string
+}
 export type ProfileInfoType = {
     userId: null | number
     fullName: null | string
     photos: PhotosType
-    aboutMe: null | string
+    aboutMe: null | AboutMeType
     lookingForAJobDescription: null | boolean
     lookingForAJob: null | string
     contacts: ContactsType
@@ -54,7 +59,8 @@ const SET_TOGGLE_IS_FETCHING = 'SET-TOGGLE-IS-FETCHING';
 const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
-const CHANGE_PROFILE_STATUS = 'CHANGE_PROFILE_STATUS';
+const UPDATE_PROFILE_STATUS = 'UPDATE_PROFILE_STATUS';
+const SET_STATUS_IS_LOADING = 'SET_STATUS_IS_LOADING';
 
 // export const aboutMe: ProfileInfoType = {
 //     userId: 9999999,
@@ -158,8 +164,13 @@ const profileReducer = (state: ProfilePageType = initializeState, action: profil
                 ...state,
                 ...action.payload
             }
-        case CHANGE_PROFILE_STATUS:
-            return {...state, profileInfo: {...state.profileInfo, ...action.payload}}
+        case UPDATE_PROFILE_STATUS:
+            return {
+                ...state,
+                profileInfo: {...state.profileInfo, aboutMe: {...state.profileInfo.aboutMe, ...action.payload}}
+            }
+        case SET_STATUS_IS_LOADING:
+            return {...state, profileInfo: {...state.profileInfo, aboutMe: {...state.profileInfo.aboutMe, ...action.payload}}}
         default:
             return state;
     }
@@ -186,10 +197,16 @@ export const addPost = () => {
 export const addLikeToPost = (id: string) => {
     return {type: ADD_LIKE_TO_POST, id: id} as const
 };
-export const updateProfileStatus = (aboutMe: string) => {
+export const updateProfileStatus = (status: string) => {
     return {
-        type: CHANGE_PROFILE_STATUS,
-        payload: {aboutMe}
+        type: UPDATE_PROFILE_STATUS,
+        payload: {status}
+    } as const;
+};
+const setStatusIsLoading = (isLoading: boolean) => {
+    return {
+        type: SET_STATUS_IS_LOADING,
+        payload: {isLoading},
     } as const;
 };
 
@@ -199,20 +216,31 @@ export const getProfileTC = (id: number) => (dispatch: DispatchThunkType) => {
         .then(response => {
             dispatch(setProfileInfo(response));
             dispatch(setToggleIsFetching(false));
+            dispatch(setStatusIsLoading(true));
+            return profileApi.getStatus(id)
+        })
+        .then(response => {
+            dispatch(updateProfileStatus(response));
+            dispatch(setStatusIsLoading(false));
         });
 };
-export const getStatusTC = (id: number) => (dispatch: DispatchThunkType) => {
-    profileApi.getStatus(id)
-        .then(response => {
-        dispatch(updateProfileStatus(response));
-    })
-};
+// export const getStatusTC = (id: number) => (dispatch: DispatchThunkType) => {
+//     setTimeout(() => {
+//         profileApi.getStatus(id)
+//             .then(response => {
+//                 dispatch(updateProfileStatus(response));
+//                 dispatch(setStatusIsLoading(false));
+//             })
+//     }, 500);
+// };
 
 export const updateStatusTC = (newStatus: string) => (dispatch: DispatchThunkType) => {
+    dispatch(setStatusIsLoading(true));
     profileApi.updateStatus(newStatus)
         .then(response => {
             dispatch(updateProfileStatus(newStatus));
-    })
+            dispatch(setStatusIsLoading(false));
+        })
 }
 
 export default profileReducer
