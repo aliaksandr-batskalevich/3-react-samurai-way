@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/3-react-samurai-way/static/css/main.240e5c3a.css",
-    "main.js": "/3-react-samurai-way/static/js/main.66bcdc82.js",
+    "main.js": "/3-react-samurai-way/static/js/main.6aabdf2d.js",
     "static/js/787.1ad94f13.chunk.js": "/3-react-samurai-way/static/js/787.1ad94f13.chunk.js",
     "static/media/jobOpenings.png": "/3-react-samurai-way/static/media/jobOpenings.cea844903c3001835f0d.png",
     "static/media/nullAvatar.png": "/3-react-samurai-way/static/media/nullAvatar.810ebee608b241fefcc5.png",
     "static/media/spinnerPreloader.gif": "/3-react-samurai-way/static/media/spinnerPreloader.538a46681c0d1777619e.gif",
     "index.html": "/3-react-samurai-way/index.html",
     "main.240e5c3a.css.map": "/3-react-samurai-way/static/css/main.240e5c3a.css.map",
-    "main.66bcdc82.js.map": "/3-react-samurai-way/static/js/main.66bcdc82.js.map",
+    "main.6aabdf2d.js.map": "/3-react-samurai-way/static/js/main.6aabdf2d.js.map",
     "787.1ad94f13.chunk.js.map": "/3-react-samurai-way/static/js/787.1ad94f13.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.240e5c3a.css",
-    "static/js/main.66bcdc82.js"
+    "static/js/main.6aabdf2d.js"
   ]
 }
