@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import s from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import {SideBarContainer} from "./SideBar/SideBarContainer";
@@ -13,7 +13,11 @@ export const NavBar = () => {
     return (
         <nav className={s.nav}>
             <div>
-                <NavLink to={isAuth ? `/profile/${authId}` : `/`} className={({isActive}) => isActive ? s.activeLink : ''}>Profile</NavLink>
+                <NavLink to={isAuth ? `/profile/${authId}` : `/`}
+                         className={({isActive}) => isActive ? s.activeLink : ''}>Profile</NavLink>
+            </div>
+            <div>
+                <NavLink to='/cats' className={({isActive}) => isActive ? s.activeLink : ''}>Cats :)</NavLink>
             </div>
             <div>
                 <NavLink to='/messages' className={({isActive}) => isActive ? s.activeLink : ''}>Messages</NavLink>
@@ -24,13 +28,11 @@ export const NavBar = () => {
             <div>
                 <NavLink to='/music' className={({isActive}) => isActive ? s.activeLink : ''}>Music</NavLink>
             </div>
-            <div>
-                <NavLink to='/cats' className={({isActive}) => isActive ? s.activeLink : ''}>Cats :)</NavLink>
-            </div>
+
             <div>
                 <NavLink to='/settings' className={({isActive}) => isActive ? s.activeLink : ''}>Settings</NavLink>
             </div>
-            <SideBarContainer />
+            <SideBarContainer/>
         </nav>
     )
 }
