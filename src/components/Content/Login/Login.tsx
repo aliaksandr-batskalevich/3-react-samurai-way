@@ -10,7 +10,7 @@ export const Login = () => {
     const {isAuth, id} = useSelector<StateType, AuthDataType>(state => state.authData);
 
     return (
-        isAuth
+        isAuth && id
             ? <Navigate to={`/profile/${id}`}/>
             : <div>
                 <h1>LOGIN</h1>
