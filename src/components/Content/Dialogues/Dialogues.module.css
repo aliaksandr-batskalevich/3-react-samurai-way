@@ -29,17 +29,7 @@
 }
 
 .inputMessageWrapper {
-    display: flex;
-    align-items: flex-end;
-}
 
-.textarea {
-    width: 80%;
-    min-height: 40px;
-}
-
-.button {
-    margin-left: 5px;
 }
 
 .context {

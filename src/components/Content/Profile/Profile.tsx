@@ -7,8 +7,7 @@ import {Preloader} from "../../commons/Preloader/Preloader";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
-    changeNewPostText: (textData: string) => void,
-    addPost: () => void,
+    addPost: (newPostText: string) => void,
     addLikeToPost: (id: string) => void
     changeProfileStatus: (aboutMe: string) => void
     isMyAccountPage: boolean
@@ -27,8 +26,6 @@ export const Profile = (props: ProfilePropsType) => {
                 />
                 <MyPosts
                     posts={props.profilePage.posts}
-                    newPostValue={props.profilePage.newPostText}
-                    changePostTextCallback={props.changeNewPostText}
                     addPostCallback={props.addPost}
                     addLikeToPostCallback={props.addLikeToPost}
                 />

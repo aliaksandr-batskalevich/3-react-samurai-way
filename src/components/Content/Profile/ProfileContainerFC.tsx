@@ -7,7 +7,6 @@ import {Navigate, useParams} from "react-router-dom";
 import {
     addLikeToPost,
     addPost,
-    changeNewPostText,
     getProfileTC,
     ProfilePageType,
     updateStatusTC
@@ -27,11 +26,8 @@ const ProfileContainerFC = () => {
     const params = useParams<{ userId: string }>();
     const isMyAccountPage = id && params.userId ? id === +params.userId : false;
 
-    const changeNewPostTextHandler = (text: string) => {
-        dispatch(changeNewPostText(text));
-    };
-    const addPostHandler = () => {
-        dispatch(addPost());
+    const addPostHandler = (newPostText: string) => {
+        dispatch(addPost(newPostText));
     };
     const addLikeToPostHandler = (id: string) => {
         dispatch(addLikeToPost(id));
@@ -52,7 +48,6 @@ const ProfileContainerFC = () => {
         isAuth
             ? <Profile
                 profilePage={profilePage}
-                changeNewPostText={changeNewPostTextHandler}
                 addPost={addPostHandler}
                 addLikeToPost={addLikeToPostHandler}
                 changeProfileStatus={changeProfileStatusHandler}

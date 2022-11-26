@@ -17,13 +17,10 @@ export type messagesDataType = Array<messageType>
 export type DialoguesPageType = {
     dialoguesData: dialoguesDataType
     messagesData: messagesDataType
-    newMessageText: string
 }
 
-export type dialoguesReducerActionType = ReturnType<typeof changeNewMessageTextAC>
-    | ReturnType<typeof addMessageAC>
+export type dialoguesReducerActionType = ReturnType<typeof addMessageAC>
 
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
 const initializeState: DialoguesPageType = {
@@ -55,34 +52,28 @@ const initializeState: DialoguesPageType = {
             time: '22:06'
         },
     ],
-    newMessageText: ''
 };
 
 const dialoguesReducer = (state: DialoguesPageType = initializeState, action: dialoguesReducerActionType) => {
     switch (action.type) {
-        case CHANGE_NEW_MESSAGE_TEXT:
-            return {...state, newMessageText: action.messageData};
         case ADD_MESSAGE:
-            if (state.newMessageText.trim()) {
+            if (action.payload.newMessageText && action.payload.newMessageText.trim()) {
                 let newMessage = {
                     id: v1(), avatar: 'https://cdn-icons-png.flaticon.com/512/126/126486.png',
                     name: 'Alex',
-                    message: state.newMessageText,
+                    message: action.payload.newMessageText.trim(),
                     time: getTime()
                 };
-                return {...state, newMessageText: '', messagesData: [...state.messagesData, newMessage]};
+                return {...state, messagesData: [...state.messagesData, newMessage]};
             }
             return state;
         default:
-            return state
+            return state;
     }
 }
 
-export const changeNewMessageTextAC = (messageData: string) => {
-    return {type: CHANGE_NEW_MESSAGE_TEXT, messageData: messageData} as const
-};
-export const addMessageAC = () => {
-    return {type: ADD_MESSAGE} as const
+export const addMessageAC = (newMessageText: string) => {
+    return {type: ADD_MESSAGE, payload: {newMessageText}} as const
 };
 
 export default dialoguesReducer;

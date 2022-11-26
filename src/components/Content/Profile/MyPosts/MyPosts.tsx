@@ -1,25 +1,26 @@
 import React from "react";
 import s from './MyPosts.module.css';
-import {NewPost} from "./NewPost/NewPost";
+import NewPost, {FormDataType} from "./NewPost/NewPost";
 import {Posts} from "./Posts/Posts";
 import {postsType} from "../../../../redux/profile-reducer";
 
 type MyPostsPropsType = {
     posts: postsType
-    newPostValue: string
-    addPostCallback: () => void
-    changePostTextCallback: (text: string) => void
+    addPostCallback: (newPostText: string) => void
     addLikeToPostCallback: (id: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
+
+    const onSubmitNewPostHandler = (data: FormDataType) => {
+        props.addPostCallback(data.postTextarea)
+    }
+
     return (
         <div className={s.myPostsWrapper}>
             <h2>MY POSTS</h2>
             <NewPost
-                newPostValue={props.newPostValue}
-                changePostTextCallback={props.changePostTextCallback}
-                addPostCallback={props.addPostCallback}
+               onSubmit={onSubmitNewPostHandler}
             />
             <Posts
                 posts={props.posts}

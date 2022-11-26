@@ -15,8 +15,11 @@ export const authApi = {
         })
     },
     login(email: string, password: string, rememberMe: boolean, captcha: boolean) {
-        console.log({email, password, rememberMe, captcha});
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha}).then(response => response.data);
+        return instance
+            .post(`auth/login`, {email, password, rememberMe, captcha})
+            .then(response => {
+                return response.data
+            });
     },
     logout() {
         return instance.delete('auth/login');

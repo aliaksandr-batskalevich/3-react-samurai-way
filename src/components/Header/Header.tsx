@@ -8,7 +8,7 @@ export const Header = () => {
     return (
         <header className={s.header}>
             <div className={s.logo}>
-                <NavLink to={'/'}>
+                <NavLink to={''}>
                     <img
                     src="https://papik.pro/uploads/posts/2021-11/thumbs/1636115978_47-papik-pro-p-logotip-nasa-foto-48.png"
                     alt="logo"/>

@@ -1,6 +1,6 @@
 import React from "react";
 import {Dialogues} from "./Dialogues";
-import {addMessageAC, changeNewMessageTextAC} from "../../../redux/dialogues-reducer";
+import {addMessageAC} from "../../../redux/dialogues-reducer";
 import {ActionsType, StateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
@@ -13,11 +13,8 @@ let mapStateToProps = (state: StateType) => {
 };
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
-        changeNewMessageTextCallback: (messageData: string) => {
-            dispatch(changeNewMessageTextAC(messageData))
-        },
-        sendMessageCallback: () => {
-            dispatch(addMessageAC());
+        sendMessageCallback: (newMessageText: string) => {
+            dispatch(addMessageAC(newMessageText));
         }
     };
 };

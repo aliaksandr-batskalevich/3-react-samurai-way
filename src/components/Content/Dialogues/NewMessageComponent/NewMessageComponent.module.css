@@ -1,16 +1,19 @@
+.newMessageWrapper {
+}
+
 .form {
     display: flex;
     align-items: flex-end;
 }
 
+
 .textarea {
-    height: 40px;
-    width: 400px;
+    width: 300px;
+    min-height: 40px;
 }
 
-.addPostButton {
+.button {
     margin-left: 5px;
-    height: 20px;
 }
 
 .errorWrapper {

@@ -1,0 +1,29 @@
+.inputWrapper {
+    position: relative;
+}
+
+.input {
+
+}
+
+.errorWrapper {
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+    position: absolute;
+    top: -5px;
+    left: -145px;
+}
+
+.errorWrapper::after {
+    content: '\21E8';
+    font-size: 30px;
+    line-height: 30px;
+    display: inline-block;
+}
+
+
+

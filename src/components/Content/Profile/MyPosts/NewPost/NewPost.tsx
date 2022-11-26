@@ -1,36 +1,42 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {useState} from "react";
 import s from './NewPost.module.css';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxValue} from "../../../../../utilities/validators";
+import {Textarea} from "../../../../commons/Forms/Textarea/Textarea";
 
-type NewPostPropsType = {
-    newPostValue: string
-    addPostCallback: () => void
-    changePostTextCallback: (text: string) => void
+export type FormDataType = {
+    postTextarea: string
+}
+type iPropsType = {
+    onSubmit: (data: FormDataType) => void
 }
 
-export const NewPost = (props: NewPostPropsType) => {
+const maxValue25 = maxValue(25);
 
-    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changePostTextCallback(event.currentTarget.value);
-    };
+const NewPost: React.FC<InjectedFormProps<FormDataType & iPropsType>> = ({handleSubmit}) => {
 
-    const onKeyPressTextAeaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        event.key === 'Enter' && props.addPostCallback();
-    };
-
-    const onClickButtonHandler = () => {
-        props.addPostCallback();
-    };
+    const [error, setError] = useState<undefined | string>(undefined);
 
     return (
         <div className={s.newPostWrapper}>
-            <textarea
-                className={s.textarea}
-                placeholder='New post...'
-                value={props.newPostValue}
-                onChange={onChangeTextAreaHandler}
-                onKeyPress={onKeyPressTextAeaHandler}
-            />
-            <button className={s.addPostButton} onClick={onClickButtonHandler}>post</button>
+            <form className={s.form} onSubmit={handleSubmit}>
+                <Field
+                    name={'postTextarea'}
+                    component={Textarea}
+                    validate={[maxValue25]}
+
+                    placeholder={'Create new post...\nMax length 25 symbols.'}
+                    className={s.textarea}
+
+                    setErrorHandler={setError}
+                />
+                <button className={s.addPostButton} disabled={!!error}>post</button>
+            </form>
+            <div className={s.errorWrapper}>
+                {error && <span>{error}</span>}
+            </div>
         </div>
     )
 }
+
+export default reduxForm<FormDataType & iPropsType>({form: 'newPost'})(NewPost)

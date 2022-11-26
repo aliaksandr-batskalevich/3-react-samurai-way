@@ -24,7 +24,11 @@ export const Login = () => {
                 <h1 className={s.title}>LOGIN</h1>
                 <div className={s.loginFormWrapper}>
                     <LoginForm onSubmit={onSubmitHandler}/>
-                    <p className={s.context}>To test the application, you can use the test account.<br/>Login: <span className={s.contextValue}>free@samuraijs.com</span><br/>Password: <span className={s.contextValue}>free</span></p>
+                    <p className={s.context}>
+                        To test the application, you can use the test account.<br/>Login: <span
+                        className={s.contextValue}>free@samuraijs.com</span><br/>Password: <span
+                        className={s.contextValue}>free</span>
+                    </p>
                 </div>
             </div>
     );

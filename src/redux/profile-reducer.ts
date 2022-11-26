@@ -3,8 +3,7 @@ import {getDate} from "./unitedFn";
 import {profileApi} from "../api/api";
 import {DispatchThunkType} from "./redux-store";
 
-export type profileReducerActionType = ReturnType<typeof changeNewPostText>
-    | ReturnType<typeof addPost>
+export type profileReducerActionType = ReturnType<typeof addPost>
     | ReturnType<typeof addLikeToPost>
     | ReturnType<typeof setToggleIsFetching>
     | ReturnType<typeof setProfileInfo>
@@ -50,13 +49,11 @@ export type postsType = Array<postType>
 export type ProfilePageType = {
     profileInfo: ProfileInfoType
     posts: postsType
-    newPostText: string
     toggleIsFetching: boolean
 }
 
 const SET_PROFILE_INFO = 'SET-PROFILE-INFO';
 const SET_TOGGLE_IS_FETCHING = 'SET-TOGGLE-IS-FETCHING';
-const CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT';
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
 const UPDATE_PROFILE_STATUS = 'UPDATE_PROFILE_STATUS';
@@ -129,20 +126,17 @@ export const initializeState: ProfilePageType = {
             numOfLikes: 12
         }
     ],
-    newPostText: '',
     toggleIsFetching: true,
 };
 
 const profileReducer = (state: ProfilePageType = initializeState, action: profileReducerActionType) => {
     switch (action.type) {
-        case CHANGE_NEW_POST_TEXT:
-            return {...state, newPostText: action.textData};
         case ADD_POST:
-            if (state.newPostText.trim()) {
+            if (action.payload.newPostText && action.payload.newPostText.trim()) {
                 let newPost = {
                     id: v1(),
                     avatar: 'https://papik.pro/uploads/posts/2022-01/thumbs/1643607932_3-papik-pro-p-logotip-koshka-3.png',
-                    text: state.newPostText.trim(),
+                    text: action.payload.newPostText.trim(),
                     date: getDate(),
                     numOfLikes: 0
                 };
@@ -170,7 +164,10 @@ const profileReducer = (state: ProfilePageType = initializeState, action: profil
                 profileInfo: {...state.profileInfo, aboutMe: {...state.profileInfo.aboutMe, ...action.payload}}
             }
         case SET_STATUS_IS_LOADING:
-            return {...state, profileInfo: {...state.profileInfo, aboutMe: {...state.profileInfo.aboutMe, ...action.payload}}}
+            return {
+                ...state,
+                profileInfo: {...state.profileInfo, aboutMe: {...state.profileInfo.aboutMe, ...action.payload}}
+            }
         default:
             return state;
     }
@@ -188,11 +185,8 @@ export const setToggleIsFetching = (toggleIsFetching: boolean) => {
         payload: {toggleIsFetching}
     } as const;
 };
-export const changeNewPostText = (textData: string) => {
-    return {type: CHANGE_NEW_POST_TEXT, textData: textData} as const
-};
-export const addPost = () => {
-    return {type: ADD_POST} as const
+export const addPost = (newPostText: string) => {
+    return {type: ADD_POST, payload: {newPostText}} as const
 };
 export const addLikeToPost = (id: string) => {
     return {type: ADD_LIKE_TO_POST, id: id} as const
@@ -233,7 +227,6 @@ export const getProfileTC = (id: number) => (dispatch: DispatchThunkType) => {
 //             })
 //     }, 500);
 // };
-
 export const updateStatusTC = (newStatus: string) => (dispatch: DispatchThunkType) => {
     dispatch(setStatusIsLoading(true));
     profileApi.updateStatus(newStatus)

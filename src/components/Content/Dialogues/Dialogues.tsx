@@ -3,25 +3,18 @@ import s from './Dialogues.module.css';
 import {DialogueItem} from "./DialogueItem/DialogueItem";
 import {Message} from "./Message/Message";
 import {DialoguesPageType} from "../../../redux/dialogues-reducer";
+import NewMessageComponent, {FormDataType} from "./NewMessageComponent/NewMessageComponent";
 
 type DialoguesPropsType = {
     dialoguesPage: DialoguesPageType
-    changeNewMessageTextCallback: (text: string) => void
-    sendMessageCallback: () => void
+    sendMessageCallback: (newMessageText: string) => void
 }
 
 export const Dialogues = (props: DialoguesPropsType) => {
 
-    const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessageTextCallback(event.currentTarget.value);
-    };
-
-    const onKeyPressTextAreaHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        event.key === 'Enter' && props.sendMessageCallback();
-    };
-    const onClickButtonHandler = () => {
-        props.sendMessageCallback();
-    };
+    const onSubmitNewMessageHandler = (value: FormDataType) => {
+        props.sendMessageCallback(value.newMessageText);
+    }
 
     let dialogues = props.dialoguesPage.dialoguesData.map(el => {
         return (
@@ -43,19 +36,7 @@ export const Dialogues = (props: DialoguesPropsType) => {
                 <div className={s.messages}>
                     {messages}
                     <div className={s.inputMessageWrapper}>
-                    <textarea
-                        className={s.textarea}
-                        placeholder={'write new message...'}
-                        value={props.dialoguesPage.newMessageText}
-                        onChange={onChangeTextAreaHandler}
-                        onKeyPress={onKeyPressTextAreaHandler}
-                    />
-                        <button
-                            className={s.button}
-                            onClick={onClickButtonHandler}
-                        >
-                            Send
-                        </button>
+                    <NewMessageComponent onSubmit={onSubmitNewMessageHandler} />
                     </div>
                 </div>
             </div>
