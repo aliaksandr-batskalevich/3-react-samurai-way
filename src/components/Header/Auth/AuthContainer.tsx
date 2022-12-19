@@ -1,27 +1,20 @@
 import React from "react";
 import {Auth} from "./Auth";
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
-import {authUserTC, logoutTC} from "../../../redux/auth-reducer";
+import {RootStateType} from "../../../redux/redux-store";
+import {logoutTC} from "../../../redux/auth-reducer";
 
 export type AuthContainerPropsType = {
     isAuth: boolean
     login: null | string
     avatarSrc: null | string
 
-    authUser: () => void
     logOut: () => void
 }
 
 class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
 
-    componentDidMount() {
-       this.props.authUser();
-    }
-
-    logOut = () => {
-        this.props.logOut();
-    }
+    componentDidMount() { }
 
     render() {
         return <Auth
@@ -29,12 +22,12 @@ class AuthContainer extends React.Component<AuthContainerPropsType, {}> {
             login={this.props.login}
 
             avatarSrc={this.props.avatarSrc}
-            logOut={this.logOut}
+            logOut={this.props.logOut}
         />
     }
 }
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootStateType) => {
     return (
         {
             isAuth: state.authData.isAuth,
@@ -44,4 +37,4 @@ let mapStateToProps = (state: StateType) => {
     )
 }
 
-export default connect(mapStateToProps, {authUser: authUserTC, logOut: logoutTC})(AuthContainer)
+export default connect(mapStateToProps, {logOut: logoutTC})(AuthContainer)

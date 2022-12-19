@@ -19,7 +19,7 @@ export type DialoguesPageType = {
     messagesData: messagesDataType
 }
 
-export type dialoguesReducerActionType = ReturnType<typeof addMessageAC>
+export type DialoguesReducerActionType = ReturnType<typeof addMessageAC>
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
@@ -54,7 +54,7 @@ const initializeState: DialoguesPageType = {
     ],
 };
 
-const dialoguesReducer = (state: DialoguesPageType = initializeState, action: dialoguesReducerActionType) => {
+const dialoguesReducer = (state: DialoguesPageType = initializeState, action: DialoguesReducerActionType) => {
     switch (action.type) {
         case ADD_MESSAGE:
             if (action.payload.newMessageText && action.payload.newMessageText.trim()) {

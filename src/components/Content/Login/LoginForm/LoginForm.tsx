@@ -4,7 +4,7 @@ import {InjectedFormProps, reduxForm, Field} from 'redux-form'
 import {Input} from "../../../commons/Forms/Input/Input";
 import {required} from "../../../../utilities/validators";
 import {useSelector} from "react-redux";
-import {StateType} from "../../../../redux/redux-store";
+import {RootStateType} from "../../../../redux/redux-store";
 
 export type FormDataType = {
     login: string
@@ -16,7 +16,7 @@ type iPropsType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType & iPropsType>> = (props) => {
-    const isAuthing = useSelector<StateType, boolean>(state => state.authData.isAuthing);
+    const isAuthing = useSelector<RootStateType, boolean>(state => state.authData.isAuthing);
 
     const {handleSubmit, error} = props;
 

@@ -3,7 +3,7 @@ import {getDate} from "./unitedFn";
 import {profileApi} from "../api/api";
 import {DispatchThunkType} from "./redux-store";
 
-export type profileReducerActionType = ReturnType<typeof addPost>
+export type ProfileReducerActionType = ReturnType<typeof addPost>
     | ReturnType<typeof addLikeToPost>
     | ReturnType<typeof setToggleIsFetching>
     | ReturnType<typeof setProfileInfo>
@@ -129,7 +129,7 @@ export const initializeState: ProfilePageType = {
     toggleIsFetching: true,
 };
 
-const profileReducer = (state: ProfilePageType = initializeState, action: profileReducerActionType) => {
+const profileReducer = (state: ProfilePageType = initializeState, action: ProfileReducerActionType) => {
     switch (action.type) {
         case ADD_POST:
             if (action.payload.newPostText && action.payload.newPostText.trim()) {

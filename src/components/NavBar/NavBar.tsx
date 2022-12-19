@@ -2,13 +2,13 @@ import React from "react";
 import s from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import {SideBarContainer} from "./SideBar/SideBarContainer";
-import {StateType} from "../../redux/redux-store";
+import {RootStateType} from "../../redux/redux-store";
 import {useSelector} from "react-redux";
 
 export const NavBar = () => {
 
-    const isAuth = useSelector<StateType, boolean>(state => state.authData.isAuth);
-    const authId = useSelector<StateType, null | number>(state => state.authData.id);
+    const isAuth = useSelector<RootStateType, boolean>(state => state.authData.isAuth);
+    const authId = useSelector<RootStateType, null | number>(state => state.authData.id);
 
     return (
         <nav className={s.nav}>

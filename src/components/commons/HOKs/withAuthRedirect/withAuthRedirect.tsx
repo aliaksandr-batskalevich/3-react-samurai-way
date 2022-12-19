@@ -1,5 +1,5 @@
 import React from "react";
-import {StateType} from "../../../../redux/redux-store";
+import {RootStateType} from "../../../../redux/redux-store";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 
@@ -18,7 +18,7 @@ export function withAuthRedirect<T>(Component: React.ComponentType<T>) {
     }
 
 
-    let mapStateToProps = (state: StateType): MapStateToPropsType => {
+    let mapStateToProps = (state: RootStateType): MapStateToPropsType => {
         return {isAuth: state.authData.isAuth};
     };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {RootStateType} from "../../../redux/redux-store";
 import {AuthDataType, loginTC} from "../../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import LoginForm, {FormDataType} from "./LoginForm/LoginForm";
@@ -9,7 +9,7 @@ import s from './Login.module.css'
 
 export const Login = () => {
 
-    const {isAuth, id} = useSelector<StateType, AuthDataType>(state => state.authData);
+    const {isAuth, id} = useSelector<RootStateType, AuthDataType>(state => state.authData);
     const dispatch = useAppDispatch();
 
     const onSubmitHandler = (data: FormDataType) => {

@@ -2,6 +2,7 @@ import {DispatchThunkType} from "./redux-store";
 import {authApi, profileApi} from "../api/api";
 import {setProfileInfo, setToggleIsFetching} from "./profile-reducer";
 import {stopSubmit} from "redux-form";
+import {setInit} from "./initApp-reducer";
 
 export type AuthDataType = {
     isAuthing: boolean
@@ -91,6 +92,9 @@ export const authUserTC = () => (dispatch: DispatchThunkType) => {
         })
         .catch(error => {
             console.warn(error);
+        })
+        .finally(() => {
+            dispatch(setInit());
         });
 };
 

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {RootStateType} from "../../../redux/redux-store";
 import {
     CatsType,
 
@@ -59,7 +59,7 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
     }
 }
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
         cats: state.catsPage.cats,
         currentPage: state.catsPage.currentPage,

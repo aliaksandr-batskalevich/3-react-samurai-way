@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import {ActionsType, StateType} from "../../../redux/redux-store";
+import {ActionsType, RootStateType} from "../../../redux/redux-store";
 import {SideBar} from "./SideBar";
 import {Dispatch} from "redux";
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
         friendsPage: state.friendsPage
     }

@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 
-export type friendReducerActionType = ReturnType<typeof addFriendAC>
+export type FriendReducerActionType = ReturnType<typeof addFriendAC>
 
 export type friendType = {
     id: string
@@ -39,7 +39,7 @@ const initializeState = [
     }
 ];
 
-const friendsReducer = (state: friendsPageType = initializeState, action: friendReducerActionType) => {
+const friendsReducer = (state: friendsPageType = initializeState, action: FriendReducerActionType) => {
     return state;
 }
 

@@ -7,8 +7,7 @@ type WrappedFieldProps = {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
 }
-type CustomPropsType = {}
-type InputPropsType = DefaultInputPropsType & WrappedFieldProps & CustomPropsType
+type InputPropsType = DefaultInputPropsType & WrappedFieldProps
 
 
 export const Input: React.FC<InputPropsType> = ({input, meta, ...props}) => {
@@ -23,7 +22,8 @@ export const Input: React.FC<InputPropsType> = ({input, meta, ...props}) => {
 
                 className={s.input}
             />
-            {errorRules && <div className={s.errorWrapper}>
+            {errorRules
+            && <div className={s.errorWrapper}>
                 <div className={s.arrow}>{meta.error}</div>
             </div>}
         </div>

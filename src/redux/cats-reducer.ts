@@ -1,7 +1,7 @@
 import {DispatchThunkType} from "./redux-store";
 import {usersApi} from "../api/api";
 
-export type catsReducerActionType = ReturnType<typeof follow>
+export type CatsReducerActionType = ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setCats>
     | ReturnType<typeof setTotalPage>
@@ -49,7 +49,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 const FOLLOWING = 'FOLLOWING';
 
-export const catsReducer = (state: CatsPageType = initializeState, action: catsReducerActionType): CatsPageType => {
+export const catsReducer = (state: CatsPageType = initializeState, action: CatsReducerActionType): CatsPageType => {
     switch (action.type) {
         case FOLLOW: {
             return {

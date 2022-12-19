@@ -1,12 +1,12 @@
 import React from "react";
 import {Dialogues} from "./Dialogues";
 import {addMessageAC} from "../../../redux/dialogues-reducer";
-import {ActionsType, StateType} from "../../../redux/redux-store";
+import {ActionsType, RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../commons/HOKs/withAuthRedirect/withAuthRedirect";
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootStateType) => {
     return {
         dialoguesPage: state.dialoguesPage
     };
