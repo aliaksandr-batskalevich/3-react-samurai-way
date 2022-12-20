@@ -5,10 +5,11 @@ import {ActionsType, RootStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../commons/HOKs/withAuthRedirect/withAuthRedirect";
+import {getDialoguesPage} from "../../../redux/selectors";
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        dialoguesPage: state.dialoguesPage
+        dialoguesPage: getDialoguesPage(state),
     };
 };
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {

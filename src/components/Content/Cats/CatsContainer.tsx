@@ -8,6 +8,14 @@ import {
 } from "../../../redux/cats-reducer";
 import React from "react";
 import {Cats} from "./Cats";
+import {
+    getCats,
+    getCatsOnPage,
+    getCurrentPage,
+    getFollowingInProgress,
+    getToggleIsFetching,
+    getTotalPage
+} from "../../../redux/selectors";
 
 type CatsContainerPropsType = {
     cats: CatsType
@@ -61,14 +69,15 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-        cats: state.catsPage.cats,
-        currentPage: state.catsPage.currentPage,
+        cats: getCats(state),
+        currentPage: getCurrentPage(state),
         // num of cats on ine page
-        catsOnPage: state.catsPage.catsOnPage,
+        catsOnPage: getCatsOnPage(state),
         // num of pages
-        totalPage: state.catsPage.totalPage,
-        toggleIsFetching: state.catsPage.toggleIsFetching,
-        followingInProgress: state.catsPage.followingInProgress
+        totalPage: getTotalPage(state),
+        toggleIsFetching: getToggleIsFetching(state),
+        // array of usersId, that following in progress
+        followingInProgress: getFollowingInProgress(state),
     };
 };
 

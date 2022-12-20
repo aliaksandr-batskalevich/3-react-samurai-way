@@ -11,6 +11,9 @@ type ProfileStatusPropsType = {
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
+    // localState of classComponent
+    // for update - using default method this.setState({ status: 'any text' })
+
     state = {
         isChanging: false,
         status: this.props.aboutMe?.status
