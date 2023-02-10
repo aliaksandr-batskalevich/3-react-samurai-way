@@ -1,7 +1,10 @@
 import {RootStateType} from "./redux-store";
-import {CatsType} from "./cats-reducer";
+import {CatsType, PaginatorDataType} from "./cats-reducer";
 import {DialoguesPageType} from "./dialogues-reducer";
 import {friendsPageType} from "./friends-reducer";
+
+// app
+export const getIsAppInit = (state: RootStateType): boolean => state.init.isInit;
 
 // catsPage
 export const getCats = (state: RootStateType): CatsType => state.catsPage.cats;
@@ -10,6 +13,10 @@ export const getCatsOnPage = (state: RootStateType): number => state.catsPage.ca
 export const getTotalPage = (state: RootStateType): number => state.catsPage.totalPage;
 export const getToggleIsFetching = (state: RootStateType): boolean => state.catsPage.toggleIsFetching;
 export const getFollowingInProgress = (state:RootStateType): Array<number> => state.catsPage.followingInProgress;
+export const getPaginatorData = (state: RootStateType): PaginatorDataType => {
+    let {cats, followingInProgress, toggleIsFetching, ...rest} = state.catsPage;
+    return rest;
+}
 
 // dialoguesPage
 export const getDialoguesPage = (state: RootStateType): DialoguesPageType => state.dialoguesPage;

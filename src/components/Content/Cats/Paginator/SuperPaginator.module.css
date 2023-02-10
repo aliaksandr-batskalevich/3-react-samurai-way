@@ -1,0 +1,43 @@
+.paginatorWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.pagesWrapper {
+    display: inline-block;
+}
+
+.pagesWrapper div {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.pagesWrapper div:hover {
+    color: gold;
+    transform: scale(1.2);
+}
+
+.pagesWrapper div:not(:first-child) {
+    margin-left: 5px;
+}
+
+.currentPage {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.jumpButtonLeft, .jumpButtonRight {
+    cursor: pointer;
+}
+
+.jumpButtonLeft {
+    margin-right: 10px;
+}
+
+.jumpButtonRight {
+    margin-left: 10px;
+}
+
+.jumpButtonLeft:hover, .jumpButtonRight:hover {
+    transform: scale(1.2);
+}

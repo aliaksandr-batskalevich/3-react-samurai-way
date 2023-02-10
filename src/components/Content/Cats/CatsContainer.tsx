@@ -1,11 +1,6 @@
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/redux-store";
-import {
-    CatsType,
-
-    getUsersTC,
-    setCurrentPageTC, followTC, unfollowTC
-} from "../../../redux/cats-reducer";
+import {CatsType, followTC, getUsersTC, unfollowTC} from "../../../redux/cats-reducer";
 import React from "react";
 import {Cats} from "./Cats";
 import {
@@ -13,20 +8,17 @@ import {
     getCatsOnPage,
     getCurrentPage,
     getFollowingInProgress,
-    getToggleIsFetching,
-    getTotalPage
+    getToggleIsFetching
 } from "../../../redux/selectors";
 
 type CatsContainerPropsType = {
     cats: CatsType
-    currentPage: number
-    catsOnPage: number
-    totalPage: number
     toggleIsFetching: boolean
     followingInProgress: Array<number>
+    currentPage: number
+    catsOnPage: number
 
     getUsersTC: (currentPage: number, catsOnPage: number) => void
-    setCurrentPageTC: (currentPage: number, catsOnPage: number) => void
     followTC: (id: number) => void
     unfollowTC: (id: number) => void
 }
@@ -40,10 +32,6 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
         this.props.getUsersTC(this.props.currentPage, this.props.catsOnPage);
     }
 
-    setCurrentPageHandler = (currentPage: number) => {
-        this.props.setCurrentPageTC(currentPage, this.props.catsOnPage);
-    }
-
     followHandler = (id: number) => {
         this.props.followTC(id);
     }
@@ -55,14 +43,11 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
     render() {
         return <Cats
             cats={this.props.cats}
-            currentPage={this.props.currentPage}
-            totalPage={this.props.totalPage}
             toggleIsFetching={this.props.toggleIsFetching}
             followingInProgress={this.props.followingInProgress}
 
             follow={this.followHandler}
             unfollow={this.unfollowHandler}
-            setCurrentPage={this.setCurrentPageHandler}
         />
     }
 }
@@ -70,14 +55,11 @@ class CatsContainer extends React.Component<CatsContainerPropsType, {}> {
 let mapStateToProps = (state: RootStateType) => {
     return {
         cats: getCats(state),
-        currentPage: getCurrentPage(state),
-        // num of cats on ine page
-        catsOnPage: getCatsOnPage(state),
-        // num of pages
-        totalPage: getTotalPage(state),
         toggleIsFetching: getToggleIsFetching(state),
         // array of usersId, that following in progress
         followingInProgress: getFollowingInProgress(state),
+        currentPage: getCurrentPage(state),
+        catsOnPage: getCatsOnPage(state),
     };
 };
 
@@ -107,7 +89,6 @@ let mapStateToProps = (state: RootStateType) => {
 
 export default connect(mapStateToProps, {
     getUsersTC,
-    setCurrentPageTC,
     followTC,
     unfollowTC,
 })(CatsContainer);

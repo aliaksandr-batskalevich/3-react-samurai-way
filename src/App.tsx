@@ -5,13 +5,13 @@ import {NavBar} from "./components/NavBar/NavBar";
 import {Content} from "./components/Content/Content";
 import {HashRouter} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {RootStateType} from "./redux/redux-store";
 import {Preloader} from "./components/commons/Preloader/Preloader";
 import {useAppDispatch} from "./redux/hooks";
 import {authUserTC} from "./redux/auth-reducer";
+import {getIsAppInit} from "./redux/selectors";
 
 const App = () => {
-    const isInit = useSelector<RootStateType, boolean>(state => state.init.isInit);
+    const isInit = useSelector(getIsAppInit);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

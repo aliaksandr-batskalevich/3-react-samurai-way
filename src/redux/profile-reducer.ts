@@ -9,6 +9,7 @@ export type ProfileReducerActionType = ReturnType<typeof addPost>
     | ReturnType<typeof setProfileInfo>
     | ReturnType<typeof updateProfileStatus>
     | ReturnType<typeof setStatusIsLoading>
+    | ReturnType<typeof removePost>
 
 
 type PhotosType = {
@@ -58,6 +59,7 @@ const ADD_POST = 'ADD-POST';
 const ADD_LIKE_TO_POST = 'ADD-LIKE-TO-POST';
 const UPDATE_PROFILE_STATUS = 'UPDATE_PROFILE_STATUS';
 const SET_STATUS_IS_LOADING = 'SET_STATUS_IS_LOADING';
+const REMOVE_POST = 'REMOVE-POST';
 
 // export const aboutMe: ProfileInfoType = {
 //     userId: 9999999,
@@ -143,6 +145,8 @@ const profileReducer = (state: ProfilePageType = initializeState, action: Profil
                 return {...state, newPostText: '', posts: [...state.posts, newPost]};
             }
             return state;
+        case REMOVE_POST:
+            return {...state, posts: state.posts.filter(p => p.id !== action.payload.postId)};
         case ADD_LIKE_TO_POST:
             return {
                 ...state,
@@ -173,6 +177,18 @@ const profileReducer = (state: ProfilePageType = initializeState, action: Profil
     }
 }
 
+export const addPost = (newPostText: string) => {
+    return {type: ADD_POST, payload: {newPostText}} as const
+};
+export const removePost = (postId: string) => {
+    return {
+        type: REMOVE_POST,
+        payload: {postId}
+    } as const;
+};
+export const addLikeToPost = (id: string) => {
+    return {type: ADD_LIKE_TO_POST, id: id} as const
+};
 export const setProfileInfo = (profileInfo: ProfileInfoType) => {
     return {
         type: SET_PROFILE_INFO,
@@ -185,19 +201,13 @@ export const setToggleIsFetching = (toggleIsFetching: boolean) => {
         payload: {toggleIsFetching}
     } as const;
 };
-export const addPost = (newPostText: string) => {
-    return {type: ADD_POST, payload: {newPostText}} as const
-};
-export const addLikeToPost = (id: string) => {
-    return {type: ADD_LIKE_TO_POST, id: id} as const
-};
 export const updateProfileStatus = (status: string) => {
     return {
         type: UPDATE_PROFILE_STATUS,
         payload: {status}
     } as const;
 };
-const setStatusIsLoading = (isLoading: boolean) => {
+export const setStatusIsLoading = (isLoading: boolean) => {
     return {
         type: SET_STATUS_IS_LOADING,
         payload: {isLoading},

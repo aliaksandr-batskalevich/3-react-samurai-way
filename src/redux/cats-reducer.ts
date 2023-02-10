@@ -31,6 +31,7 @@ export type CatsPageType = {
     toggleIsFetching: boolean
     followingInProgress: Array<number>
 }
+export type PaginatorDataType = Pick<CatsPageType, 'currentPage' | 'totalPage' | 'catsOnPage'>;
 
 export const initializeState: CatsPageType = {
     cats: [],

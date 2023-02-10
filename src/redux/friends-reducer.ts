@@ -39,7 +39,7 @@ const initializeState = [
     }
 ];
 
-const friendsReducer = (state: friendsPageType = initializeState, action: FriendReducerActionType) => {
+const friendsReducer = (state: friendsPageType = initializeState, action: FriendReducerActionType): friendsPageType => {
     return state;
 }
 
