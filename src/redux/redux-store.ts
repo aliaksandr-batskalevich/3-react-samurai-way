@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore} from "redux";
 import profileReducer, {ProfileReducerActionType} from "./profile-reducer";
 import dialoguesReducer, {DialoguesReducerActionType} from "./dialogues-reducer";
 import friendsReducer, {FriendReducerActionType} from "./friends-reducer";
@@ -29,9 +29,12 @@ let rootReducer = combineReducers({
     authData: authReducer,
     form: formReducer,
     init: initAppReducer,
-})
+});
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 // @ts-ignore
 window.store = store;

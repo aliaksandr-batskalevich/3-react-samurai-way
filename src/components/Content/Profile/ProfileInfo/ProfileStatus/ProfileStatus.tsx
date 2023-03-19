@@ -7,17 +7,25 @@ type ProfileStatusPropsType = {
     aboutMe: null | AboutMeType
     isMyAccountPage: boolean
     changeProfileStatus: (aboutMe: string) => void
-}
+};
+type StateType = {
+    isChanging: boolean
+    status: undefined | null | string
+};
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
-    // localState of classComponent
-    // for update - using default method this.setState({ status: 'any text' })
+    state: StateType
 
-    state = {
-        isChanging: false,
-        status: this.props.aboutMe?.status
+    constructor(props: ProfileStatusPropsType) {
+        super(props);
+        this.state = {
+            isChanging: false,
+            status: this.props.aboutMe?.status
+        }
     }
+
+
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (prevProps.aboutMe && this.props.aboutMe && prevProps.aboutMe.status !== this.props.aboutMe.status) {

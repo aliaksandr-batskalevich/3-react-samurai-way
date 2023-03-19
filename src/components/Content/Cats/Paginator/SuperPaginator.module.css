@@ -1,6 +1,7 @@
 .paginatorWrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .pagesWrapper {
@@ -12,7 +13,9 @@
     cursor: pointer;
 }
 
-.pagesWrapper div:hover {
+.pagesWrapper div:hover,
+.leftButtons div:hover,
+.rightButtons div:hover {
     color: gold;
     transform: scale(1.2);
 }
@@ -26,18 +29,16 @@
     font-weight: bold;
 }
 
-.jumpButtonLeft, .jumpButtonRight {
+.leftButtons, .rightButtons {
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }
 
-.jumpButtonLeft {
+.leftButtons > div {
     margin-right: 10px;
 }
 
-.jumpButtonRight {
+.rightButtons > div {
     margin-left: 10px;
-}
-
-.jumpButtonLeft:hover, .jumpButtonRight:hover {
-    transform: scale(1.2);
 }

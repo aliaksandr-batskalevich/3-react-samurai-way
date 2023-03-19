@@ -20,7 +20,6 @@ export const Cats: React.FC<CatsPropsType> = ({
                                                   follow,
                                                   unfollow,
                                                   followingInProgress,
-
                                               }) => {
 
     let catsToRender = cats.map(cat => {
